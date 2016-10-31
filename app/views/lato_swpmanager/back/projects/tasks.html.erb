@@ -5,7 +5,7 @@ block = view(:layout, :block).new
 project_button = view(:component, :button).new(title: 'Go to project',
 url: lato_swpmanager.project_path(@project.id), size: :small)
 
-tasks_actionbar = view(:layout, :actionbar).new(title: "#{@project.title} - Tasks", widgets: [
+tasks_actionbar = view(:layout, :actionbar).new(title: "Tasks", widgets: [
     {component: project_button, align: :right}
   ])
 
@@ -48,7 +48,7 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 <div class="content-row">
   <%=raw block.open(width: 'small-12 medium-7') %>
 
-    <h6 class="latoswpmanager-small-title">Progress</h6>
+    <h6 class="latoswpmanager-small-title"><%= @project.title %></h6>
 
     <%= render 'lato_swpmanager/back/projects/shared/progress' %>
 
