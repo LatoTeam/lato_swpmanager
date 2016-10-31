@@ -118,3 +118,24 @@ $yellow-sea     : #ffae03;
     }
   }
 }
+
+// project progress bar
+.latoswpmanager-project-progress {
+
+  td:first-child {
+    width: 50px;
+  }
+
+  .progress-bar {
+    height: 4px;
+    background-color: rgba($robin-blue, 0.1);
+  }
+
+  .actual-progress {
+    height: 4px;
+    &.completed {background-color: $jungle-green;}
+    &.wait {background-color: $yellow-sea;}
+    &.develop {background-color: $robin-blue;}
+    &.test {background-color: $rhino;}
+  }
+}

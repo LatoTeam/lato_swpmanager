@@ -1,0 +1,47 @@
+<div class="latoswpmanager-project-progress">
+
+  <%
+    total = @tasks.length
+
+    completed_percetange = (@completed_tasks.length * 100) / total
+    wait_percetange = (@wait_tasks.length * 100) / total
+    develop_percentage = (@develop_tasks.length * 100) / total
+    test_percentage = (@test_tasks.length * 100) / total
+  %>
+
+  <table class="table">
+    <tr>
+      <td>Completed</td>
+      <td>
+        <div class="progress-bar">
+          <div class="actual-progress completed" style="width: <%= completed_percetange %>%"></div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Wait</td>
+      <td>
+        <div class="progress-bar">
+          <div class="actual-progress wait" style="width: <%= wait_percetange %>%"></div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Develop</td>
+      <td>
+        <div class="progress-bar">
+          <div class="actual-progress develop" style="width: <%= develop_percentage %>%"></div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Test</td>
+      <td>
+        <div class="progress-bar">
+          <div class="actual-progress test" style="width: <%= test_percentage %>%"></div>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+</div>

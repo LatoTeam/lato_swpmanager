@@ -48,9 +48,9 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 <div class="content-row">
   <%=raw block.open(width: 'small-12 medium-7') %>
 
-      <h6 class="latoswpmanager-small-title">Tasks deadline</h6>
+    <h6 class="latoswpmanager-small-title">Progress</h6>
 
-      <%=raw index %>
+    <%= render 'lato_swpmanager/back/projects/shared/progress' %>
 
   <%=raw block.close %>
 
@@ -66,35 +66,50 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 <div class="content-row">
   <%=raw block.open(width: 'large') %>
 
-      <h6 class="latoswpmanager-small-title">Develop tasks</h6>
+      <h6 class="latoswpmanager-small-title">Tasks deadline</h6>
 
-      <%=raw develop_index %>
-
-  <%=raw block.close %>
-
-  <%=raw block.open(width: 'large') %>
-
-      <h6 class="latoswpmanager-small-title">Test tasks</h6>
-
-      <%=raw test_index %>
-
-  <%=raw block.close %>
-</div>
-
-<div class="content-row">
-  <%=raw block.open(width: 'large') %>
-
-      <h6 class="latoswpmanager-small-title">Wait tasks</h6>
-
-      <%=raw wait_index %>
+      <%=raw index %>
 
   <%=raw block.close %>
 
-  <%=raw block.open(width: 'large') %>
+  <% if !@develop_tasks.empty? %>
+    <%=raw block.open(width: 'large') %>
 
-      <h6 class="latoswpmanager-small-title">Completed tasks</h6>
+        <h6 class="latoswpmanager-small-title">Develop tasks</h6>
 
-      <%=raw completed_index %>
+        <%=raw develop_index %>
 
-  <%=raw block.close %>
+    <%=raw block.close %>
+  <% end %>
+
+
+  <% if !@test_tasks.empty? %>
+    <%=raw block.open(width: 'large') %>
+
+        <h6 class="latoswpmanager-small-title">Test tasks</h6>
+
+        <%=raw test_index %>
+
+    <%=raw block.close %>
+  <% end %>
+
+  <% if !@wait_tasks.empty? %>
+    <%=raw block.open(width: 'large') %>
+
+        <h6 class="latoswpmanager-small-title">Wait tasks</h6>
+
+        <%=raw wait_index %>
+
+    <%=raw block.close %>
+  <% end %>
+
+  <% if !@completed_tasks.empty? %>
+    <%=raw block.open(width: 'large') %>
+
+        <h6 class="latoswpmanager-small-title">Completed tasks</h6>
+
+        <%=raw completed_index %>
+
+    <%=raw block.close %>
+  <% end %>
 </div>
