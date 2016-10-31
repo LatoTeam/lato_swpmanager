@@ -46,7 +46,7 @@ module LatoSwpmanager
 
     protected def collaborator_params
       params.require(:collaborator).permit(:name, :surname, :email, :phone, :superuser,
-      :superuser_admin)
+      :superuser_admin, :work_time_per_day, :work_days_per_week)
     end
 
     protected def task_params

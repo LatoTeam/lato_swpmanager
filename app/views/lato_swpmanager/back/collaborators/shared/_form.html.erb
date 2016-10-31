@@ -5,10 +5,23 @@
     <div class="form-group">
 
       <%= raw view(:input, :text).new(value: @collaborator.name,
-              name: 'collaborator[name]', label: 'Name', width: 'half', required: true) %>
+              name: 'collaborator[name]', label: 'Name', width: 'third', required: true) %>
 
       <%= raw view(:input, :text).new(value: @collaborator.surname,
-              name: 'collaborator[surname]', label: 'Surname', width: 'half', required: true) %>
+              name: 'collaborator[surname]', label: 'Surname', width: 'third', required: true) %>
+
+      <%= raw view(:input, :select).new(value: @collaborator.work_time_per_day,
+              name: 'collaborator[work_time_per_day]', label: 'Work time per day',
+              width: 'third', required: false, options: [
+                {name: 'One', value: 1},
+                {name: 'Two', value: 2},
+                {name: 'Three', value: 3},
+                {name: 'Four', value: 4},
+                {name: 'Five', value: 5},
+                {name: 'Six', value: 6},
+                {name: 'Seven', value: 7},
+                {name: 'Eight', value: 8}
+              ]) %>
 
     </div>
 
