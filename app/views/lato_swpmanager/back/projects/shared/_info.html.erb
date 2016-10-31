@@ -87,14 +87,14 @@
   <% if @project.staging_url && !@project.staging_url.blank? %>
     <tr>
       <th>Staging url</th>
-      <td><%= link_to @project.staging_url, target: '_blank' %></td>
+      <td><%= link_to @project.staging_url, @project.staging_url, target: '_blank' %></td>
     </tr>
   <% end %>
 
   <% if @project.production_url && !@project.production_url.blank? %>
     <tr>
       <th>Staging url</th>
-      <td><%= link_to @project.production_url, target: '_blank' %></td>
+      <td><%= link_to @project.production_url, @project.production_url, target: '_blank' %></td>
     </tr>
   <% end %>
 
