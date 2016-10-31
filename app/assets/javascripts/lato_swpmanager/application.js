@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
-  $('#latowork-project-tasks-new-button').click(function () {
-    $('.latowork-project-tasks-form').toggleClass('active')
+  $('#latoswpmanager-project-tasks-new-button').click(function () {
+    $('.latoswpmanager-project-tasks-form').toggleClass('active')
   })
 
 })

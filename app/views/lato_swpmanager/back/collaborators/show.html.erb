@@ -23,7 +23,7 @@ project_actionbar = view(:layout, :actionbar).new(title: 'Projects')
 <div class="content-row">
   <%=raw block.open(width: 'half') %>
 
-      <h6 class="latowork-small-title">Info</h6>
+      <h6 class="latoswpmanager-small-title">Info</h6>
 
       <%= render 'lato_swpmanager/back/collaborators/shared/info' %>
 
@@ -31,7 +31,7 @@ project_actionbar = view(:layout, :actionbar).new(title: 'Projects')
 
   <%=raw block.open(width: 'half') %>
 
-      <h6 class="latowork-small-title">Tasks</h6>
+      <h6 class="latoswpmanager-small-title">Tasks</h6>
 
       <%= render 'lato_swpmanager/back/collaborators/shared/tasks_info' %>
 
@@ -46,11 +46,11 @@ project_actionbar = view(:layout, :actionbar).new(title: 'Projects')
     <% if @projects && !@projects.empty? %>
       <% @projects.each do |project| %>
 
-        <h6 class="latowork-small-title latowork-collaborator-tasks-project-title"><%= project.title %> <%= link_to 'Show project', lato_swpmanager.project_path(project.id) %></h6>
+        <h6 class="latoswpmanager-small-title latoswpmanager-collaborator-tasks-project-title"><%= project.title %> <%= link_to 'Show project', lato_swpmanager.project_path(project.id) %></h6>
 
         <table class="table">
           <% project.get_collaborator_tasks(@collaborator.id).each do |task| %>
-            <tr class="latowork-collaborator-tasks-task-info">
+            <tr class="latoswpmanager-collaborator-tasks-task-info">
               <td><span class="<%= task.status %>"></span></td>
               <td><%= task.title %></td>
               <td><%= link_to 'Info', lato_swpmanager.task_path(task.id), class: 'lato-button button-small' %></td>
@@ -60,7 +60,7 @@ project_actionbar = view(:layout, :actionbar).new(title: 'Projects')
 
       <% end %>
     <% else %>
-      <h6 class="latowork-small-title">No projects for collaborator</h6>
+      <h6 class="latoswpmanager-small-title">No projects for collaborator</h6>
     <% end %>
 
   <%=raw block.close %>

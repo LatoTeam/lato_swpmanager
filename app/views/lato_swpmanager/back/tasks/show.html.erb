@@ -24,13 +24,13 @@ widgets: actionbar_widgets)
 <div class="content-row">
   <%=raw block.open(width: 'small-12 medium-7') %>
 
-    <h6 class="latowork-small-title"><%= @task.title %></h6>
+    <h6 class="latoswpmanager-small-title"><%= @task.title %></h6>
 
     <%=raw @task.description %>
 
     <br><br>
 
-    <h6 class="latowork-small-title">Task conversation</h6>
+    <h6 class="latoswpmanager-small-title">Task conversation</h6>
 
     <%= render 'lato_swpmanager/back/task_messages/shared/form' %> <br>
 
@@ -42,11 +42,11 @@ widgets: actionbar_widgets)
 
   <%=raw block.open(width: 'small-12 medium-5') %>
 
-    <h6 class="latowork-small-title">Info</h6>
+    <h6 class="latoswpmanager-small-title">Info</h6>
 
     <%= render 'lato_swpmanager/back/tasks/shared/info' %> <br>
 
-    <h6 class="latowork-small-title">Update task</h6>
+    <h6 class="latoswpmanager-small-title">Update task</h6>
 
     <%= render 'lato_swpmanager/back/tasks/shared/small_form' %>
 

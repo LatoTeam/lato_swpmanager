@@ -34,7 +34,7 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 
 <%=raw tasks_actionbar %>
 
-<div class="latowork-project-tasks-form <%= (@task.id ? 'active' : nil) %>">
+<div class="latoswpmanager-project-tasks-form <%= (@task.id ? 'active' : nil) %>">
   <div class="content-row">
     <%=raw block.open %>
 
@@ -48,7 +48,7 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 <div class="content-row">
   <%=raw block.open(width: 'small-12 medium-7') %>
 
-      <h6 class="latowork-small-title">Tasks deadline</h6>
+      <h6 class="latoswpmanager-small-title">Tasks deadline</h6>
 
       <%=raw index %>
 
@@ -58,7 +58,7 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 
     <%= render 'lato_swpmanager/back/projects/shared/tasks_info' %>
 
-    <a class="lato-button button-small button-yellow" id="latowork-project-tasks-new-button" style="float: right">New task</a>
+    <a class="lato-button button-small button-yellow" id="latoswpmanager-project-tasks-new-button" style="float: right">New task</a>
 
   <%=raw block.close %>
 </div>
@@ -66,7 +66,7 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 <div class="content-row">
   <%=raw block.open(width: 'large') %>
 
-      <h6 class="latowork-small-title">Develop tasks</h6>
+      <h6 class="latoswpmanager-small-title">Develop tasks</h6>
 
       <%=raw develop_index %>
 
@@ -74,7 +74,7 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 
   <%=raw block.open(width: 'large') %>
 
-      <h6 class="latowork-small-title">Test tasks</h6>
+      <h6 class="latoswpmanager-small-title">Test tasks</h6>
 
       <%=raw test_index %>
 
@@ -84,7 +84,7 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 <div class="content-row">
   <%=raw block.open(width: 'large') %>
 
-      <h6 class="latowork-small-title">Wait tasks</h6>
+      <h6 class="latoswpmanager-small-title">Wait tasks</h6>
 
       <%=raw wait_index %>
 
@@ -92,7 +92,7 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 
   <%=raw block.open(width: 'large') %>
 
-      <h6 class="latowork-small-title">Completed tasks</h6>
+      <h6 class="latoswpmanager-small-title">Completed tasks</h6>
 
       <%=raw completed_index %>
 

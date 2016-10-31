@@ -1,5 +1,5 @@
 <% @task.task_messages.reverse.each do |message| %>
-  <div class="latowork-task-message <%= (@superuser.id === message.superuser_creator_id ? 'current' : nil) %>">
+  <div class="latoswpmanager-task-message <%= (@superuser.id === message.superuser_creator_id ? 'current' : nil) %>">
     <div class="user">
       <%= (message.get_superuser_name ? message.get_superuser_name : 'Anonymous') %> - <%= message.created_at.strftime('%d/%m/%Y - %H:%M') %>
       <% if @superuser_admin || @superuser.id === message.superuser_creator_id %>

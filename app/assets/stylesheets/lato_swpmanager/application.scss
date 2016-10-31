@@ -10,20 +10,20 @@ $radical-red    : #ff2f6c;
 $yellow-sea     : #ffae03;
 
 
-.latowork-small-title {
+.latoswpmanager-small-title {
   text-transform: uppercase;
   border-bottom: solid 2px $rhino;
   padding-bottom: 5px;
 }
 
-.latowork-helper {
+.latoswpmanager-helper {
   background: rgba($rhino, 0.1);
   padding: 10px;
   margin-bottom: 5px;
 }
 
 // tasks form on project tasks page
-.latowork-project-tasks-form {
+.latoswpmanager-project-tasks-form {
 
   height: 0;
   overflow: hidden;
@@ -44,12 +44,12 @@ $yellow-sea     : #ffae03;
 }
 
 // environemnts button container on show project
-.latowork-project-environments {
+.latoswpmanager-project-environments {
   text-align: center;
 }
 
 // project title on collaborator tasks list.
-.latowork-collaborator-tasks-project-title {
+.latoswpmanager-collaborator-tasks-project-title {
   margin-top: 30px;
 
   a {
@@ -60,12 +60,15 @@ $yellow-sea     : #ffae03;
 }
 
 // single task on collaborator tasks list.
-.latowork-collaborator-tasks-task-info {
+.latoswpmanager-collaborator-tasks-task-info {
+
   td:last-child {
     a {float: right;}
   }
 
   td:first-child {
+    width: 40px;
+
     span {
       background-color: $rhino;
       color: #fff;
@@ -86,7 +89,7 @@ $yellow-sea     : #ffae03;
 }
 
 // task message object.
-.latowork-task-message {
+.latoswpmanager-task-message {
   margin-bottom: 20px;
 
   .user {
