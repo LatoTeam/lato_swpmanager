@@ -10,7 +10,7 @@ tasks_actionbar = view(:layout, :actionbar).new(title: "#{@project.title} - Task
   ])
 
 index = view(:layout, :index).new(head: ['End date', 'Title'],
-elements: @tasks.where('end_date <= ?', Date.today + 1), attributes: [:string_end_date, :title],
+elements: @deadline_tasks, attributes: [:string_end_date, :title],
 link: lato_swpmanager.tasks_path, show_link: true, edit_link: false, delete_link: false)
 
 wait_index = view(:layout, :index).new(head: ['Title'],
@@ -46,7 +46,7 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 </div>
 
 <div class="content-row">
-  <%=raw block.open(width: 'two-third') %>
+  <%=raw block.open(width: 'small-12 medium-7') %>
 
       <h6 class="latowork-small-title">Tasks deadline</h6>
 
@@ -54,7 +54,7 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 
   <%=raw block.close %>
 
-  <%=raw block.open(width: 'third') %>
+  <%=raw block.open(width: 'small-12 medium-5') %>
 
     <%= render 'lato_swpmanager/back/projects/shared/tasks_info' %>
 
@@ -82,7 +82,7 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 </div>
 
 <div class="content-row">
-  <%=raw block.open(width: 'half') %>
+  <%=raw block.open(width: 'large') %>
 
       <h6 class="latowork-small-title">Wait tasks</h6>
 
@@ -90,7 +90,7 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 
   <%=raw block.close %>
 
-  <%=raw block.open(width: 'half') %>
+  <%=raw block.open(width: 'large') %>
 
       <h6 class="latowork-small-title">Completed tasks</h6>
 

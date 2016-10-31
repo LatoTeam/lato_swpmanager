@@ -81,6 +81,7 @@ module LatoSwpmanager
       @project = Project.find(params[:id])
       @tasks = Task.where(project_id: @project.id).order('end_date ASC')
 
+      @deadline_tasks = @tasks.where('end_date <= ?', Date.today + 1).where.not(status: 'completed')
       @wait_tasks = @tasks.where(status: 'wait')
       @develop_tasks = @tasks.where(status: 'develop')
       @test_tasks = @tasks.where(status: 'test')

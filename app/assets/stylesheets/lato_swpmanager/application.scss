@@ -1,11 +1,23 @@
+$catskill-white : #edf3f7;
+$dusty-gray     : #999999;
+$rhino          : #293b5a;
+$ebony-clay     : #292f43;
+$ship-cove      : #7b96c4;
+$robin-blue     : #00c8e7;
+$jungle-green   : #26b75e;
+$scarlet        : #e32908;
+$radical-red    : #ff2f6c;
+$yellow-sea     : #ffae03;
+
+
 .latowork-small-title {
   text-transform: uppercase;
-  border-bottom: solid 2px #293b5a;
+  border-bottom: solid 2px $rhino;
   padding-bottom: 5px;
 }
 
 .latowork-helper {
-  background: rgba(#293b5a, 0.1);
+  background: rgba($rhino, 0.1);
   padding: 10px;
   margin-bottom: 5px;
 }
@@ -47,17 +59,48 @@
   }
 }
 
+// single task on collaborator tasks list.
+.latowork-collaborator-tasks-task-info {
+  td:last-child {
+    a {float: right;}
+  }
+
+  td:first-child {
+    span {
+      background-color: $rhino;
+      color: #fff;
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      border-radius: 50%;
+      font-size: 12px;
+
+      &.wait {
+        background-color: $yellow-sea;
+      }
+      &.develop {
+        background-color: $jungle-green;
+      }
+    }
+  }
+}
+
 // task message object.
 .latowork-task-message {
   margin-bottom: 20px;
 
   .user {
     font-size: 12px;
+    margin-left: 20px;
+
+    a {
+      color: $scarlet;
+    }
   }
 
   .message {
-    background: rgba(#293b5a, 0.1);
-    padding: 10px;
+    background: rgba($rhino, 0.1);
+    padding: 8px 20px;
     font-size: 14px;
     border-radius: 10px;
   }
@@ -65,10 +108,12 @@
   &.current {
     .user {
       text-align: right;
+      margin-right: 20px;
+      margin-left: 0;
     }
 
     .message {
-      background: rgba(#00c8e7, 0.1);
+      background: rgba($robin-blue, 0.1);
       text-align: right;
     }
   }

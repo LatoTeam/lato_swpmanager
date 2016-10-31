@@ -10,12 +10,12 @@ module LatoSwpmanager
     has_many :project_collaborators, dependent: :destroy
     has_many :collaborators, through: :project_collaborators
 
-    before_create do
+    before_update do
       update_collaborators_on_project
     end
 
-    before_update do
-      update_collaborators_on_project
+    after_create do
+      create_collaborators_on_project
     end
 
     # This function return the deadline with correct format.
@@ -53,6 +53,11 @@ module LatoSwpmanager
       return Collaborator.where(id: self.get_collaborators_id)
     end
 
+    # This function return all tasks that collaborator must see on on its profile.
+    def get_collaborator_tasks(collaborator_id)
+      return self.tasks.where(collaborator_id: collaborator_id, status: ['wait', 'develop']).order('end_date ASC')
+    end
+
     # This function create or update collaborators on project.
     private def update_collaborators_on_project
       if self.collaborators_id
@@ -69,6 +74,15 @@ module LatoSwpmanager
           unless actual_ids.include? new_id
             ProjectCollaborator.create(project_id: self.id, collaborator_id: new_id)
           end
+        end
+      end
+    end
+
+    # This function create collaborators on project.
+    private def create_collaborators_on_project
+      if self.collaborators_id
+        self.collaborators_id.each do |new_id|
+          ProjectCollaborator.create(project_id: self.id, collaborator_id: new_id)
         end
       end
     end

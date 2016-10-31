@@ -46,16 +46,17 @@ project_actionbar = view(:layout, :actionbar).new(title: 'Projects')
     <% if @projects && !@projects.empty? %>
       <% @projects.each do |project| %>
 
-        <h6 class="latowork-small-title latowork-collaborator-tasks-project-title"><%= project.title %> <%= link_to 'Info', lato_swpmanager.project_path(project.id) %></h6>
+        <h6 class="latowork-small-title latowork-collaborator-tasks-project-title"><%= project.title %> <%= link_to 'Show project', lato_swpmanager.project_path(project.id) %></h6>
 
-        <%
-          index = view(:layout, :index).new(head: ['Status', 'Title'],
-          elements: project.tasks.where(collaborator_id: @collaborator.id, status: ['wait', 'develop']).order('status ASC'),
-          attributes: [:status, :title], link: lato_swpmanager.tasks_path, show_link: true, edit_link: false,
-          delete_link: false)
-        %>
-
-        <%=raw index %>
+        <table class="table">
+          <% project.get_collaborator_tasks(@collaborator.id).each do |task| %>
+            <tr class="latowork-collaborator-tasks-task-info">
+              <td><span class="<%= task.status %>"></span></td>
+              <td><%= task.title %></td>
+              <td><%= link_to 'Info', lato_swpmanager.task_path(task.id), class: 'lato-button button-small' %></td>
+            </tr>
+          <% end %>
+        </table>
 
       <% end %>
     <% else %>
