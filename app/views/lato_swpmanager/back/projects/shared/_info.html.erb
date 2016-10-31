@@ -19,6 +19,15 @@
     </tr>
   <% end %>
 
+  <tr>
+    <th>Project manager</th>
+    <td><%= @project.string_superuser_creator_name %></td>
+  </tr>
+  <tr>
+    <th>Collaborators</th>
+    <td><%= @project.string_collaborators %></td>
+  </tr>
+
   <% if !@project.main_domain.blank? %>
     <tr>
       <th>Main domain</th>
@@ -89,12 +98,4 @@
     </tr>
   <% end %>
 
-  <tr>
-    <th>Project manager</th>
-    <td><%= @project.string_superuser_creator_name %></td>
-  </tr>
-  <tr>
-    <th>Collaborators</th>
-    <td><%= @project.string_collaborators %></td>
-  </tr>
 </table>
