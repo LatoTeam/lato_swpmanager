@@ -75,6 +75,20 @@
     </tr>
   <% end %>
 
+  <% if @project.staging_url && !@project.staging_url.blank? %>
+    <tr>
+      <th>Staging url</th>
+      <td><%= link_to @project.staging_url, target: '_blank' %></td>
+    </tr>
+  <% end %>
+
+  <% if @project.production_url && !@project.production_url.blank? %>
+    <tr>
+      <th>Staging url</th>
+      <td><%= link_to @project.production_url, target: '_blank' %></td>
+    </tr>
+  <% end %>
+
   <tr>
     <th>Project manager</th>
     <td><%= @project.string_superuser_creator_name %></td>
@@ -84,13 +98,3 @@
     <td><%= @project.string_collaborators %></td>
   </tr>
 </table>
-
-<div class="latoswpmanager-project-environments">
-  <% if @project.staging_url && !@project.staging_url.blank? %>
-    <%= link_to 'Staging', @project.staging_url, class: 'lato-button button-small button-green', target: '_blank' %>
-  <% end %>
-
-  <% if @project.production_url && !@project.production_url.blank? %>
-    <%= link_to 'Production', @project.production_url, class: 'lato-button button-small button-green', target: '_blank' %>
-  <% end %>
-</div>
