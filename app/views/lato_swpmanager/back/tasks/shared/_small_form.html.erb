@@ -1,0 +1,42 @@
+<%
+
+status_options = [
+  {name: 'Wait', value: 'wait'},
+  {name: 'Develop', value: 'develop'},
+  {name: 'Test', value: 'test'}
+]
+
+if @superuser_admin
+  status_options.push({name: 'Completed', value: 'completed'})
+end
+
+%>
+
+<%= form_for([@task], html: {class: "lato-form", multipart: true}, method: :put) do |f| %>
+
+  <div class="form-group">
+
+    <div class="latowork-helper">
+      Set the real work time before update the task to test status.
+    </div>
+
+    <%= raw view(:input, :text).new(value: @task.real_work_time,
+            name: 'task[real_work_time]', label: 'Work time', width: 'large', required: false) %>
+
+  </div>
+
+  <div class="form-group">
+
+    <%= raw view(:input, :radio).new(value: @task.status,
+            name: 'task[status]', label: 'Status', width: 'large',
+            required: false, options: status_options) %>
+
+  </div>
+
+  <input type="hidden" name="task[project_id]" value="<%= @project.id %>">
+
+  <input type="hidden" name="task_collaborator_update" value="1">
+
+  <%= f.submit 'Update', class: 'lato-button button-small', style: 'float: right', :data => { disable_with: false } %>
+
+<% end %>

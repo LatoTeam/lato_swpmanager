@@ -1,0 +1,52 @@
+<% method = :post if !defined? method %>
+<%
+send = 'Create' if method === :post
+send = 'Update' if method === :put
+%>
+
+<%= form_for([@task], html: {class: "lato-form", multipart: true}, method: method) do |f| %>
+
+  <div class="form-group">
+
+    <%= raw view(:input, :text).new(value: @task.title,
+            name: 'task[title]', label: 'Title', width: 'large', required: true) %>
+
+  </div>
+
+  <div class="form-group">
+
+    <%= raw view(:input, :editor).new(value: @task.description,
+            name: 'task[description]', label: 'Description', width: 'large', required: false) %>
+
+  </div>
+
+  <div class="form-group">
+
+    <%= raw view(:input, :select).new(value: @task.collaborator_id,
+            name: 'task[collaborator_id]', label: 'Assigned to',
+            options: view(:input, :select).generate_options_from_activerecords(@project.get_collaborators, :id, :string_complete_name),
+            option_blank: false, width: 'half', required: false, multiple: false) %>
+
+    <%= raw view(:input, :text).new(value: @task.expected_work_time,
+            name: 'task[expected_work_time]', label: 'Expected work time', width: 'fourth', required: false) %>
+
+    <%= raw view(:input, :number).new(value: @task.budget,
+            name: 'task[budget]', label: 'Budget', width: 'fourth', required: false) %>
+
+  </div>
+
+  <div class="form-group">
+
+    <%= raw view(:input, :date).new(value: @task.string_start_date,
+            name: 'task[start_date]', label: 'Start date', width: 'half', required: false) %>
+
+    <%= raw view(:input, :date).new(value: @task.string_end_date,
+            name: 'task[end_date]', label: 'End date', width: 'half', required: true) %>
+
+  </div>
+
+  <input type="hidden" name="task[project_id]" value="<%= @project.id %>">
+
+  <%= f.submit send, class: 'lato-button button-small', :data => { disable_with: false } %>
+
+<% end %>

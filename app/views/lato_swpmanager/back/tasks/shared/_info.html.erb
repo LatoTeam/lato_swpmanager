@@ -1,0 +1,30 @@
+<table class="table">
+  <tr>
+    <th>Project</th>
+    <td><%= @task.string_project_title %></td>
+  </tr>
+  <tr>
+    <th>Created by</th>
+    <td><%= @task.string_superuser_creator_name %></td>
+  </tr>
+  <tr>
+    <th>Assigned to</th>
+    <td><%= @task.string_collaborator_complete_name %></td>
+  </tr>
+  <tr>
+    <th>Start date</th>
+    <td><%= @task.string_start_date %></td>
+  </tr>
+  <tr>
+    <th>End date</th>
+    <td><%= @task.string_end_date %></td>
+  </tr>
+  <tr>
+    <th>Expected work time</th>
+    <td><%= @task.expected_work_time %></td>
+  </tr>
+  <tr>
+    <th>Budget</th>
+    <td><%= @task.budget %></td>
+  </tr>
+</table>

@@ -1,0 +1,66 @@
+<%
+
+block = view(:layout, :block).new
+
+back_button = view(:component, :button).new(title: 'All collaborators',
+url: lato_swpmanager.collaborators_path, size: :small)
+
+actionbar_widgets = []
+if @superuser_admin
+  actionbar_widgets.push({component: back_button, align: :right})
+end
+
+actionbar = view(:layout, :actionbar).new(title: @collaborator.string_complete_name,
+widgets: actionbar_widgets )
+
+project_actionbar = view(:layout, :actionbar).new(title: 'Projects')
+
+%>
+
+
+<%=raw actionbar %>
+
+<div class="content-row">
+  <%=raw block.open(width: 'half') %>
+
+      <h6 class="latowork-small-title">Info</h6>
+
+      <%= render 'lato_swpmanager/back/collaborators/shared/info' %>
+
+  <%=raw block.close %>
+
+  <%=raw block.open(width: 'half') %>
+
+      <h6 class="latowork-small-title">Tasks</h6>
+
+      <%= render 'lato_swpmanager/back/collaborators/shared/tasks_info' %>
+
+  <%=raw block.close %>
+</div>
+
+<%=raw project_actionbar %>
+
+<div class="content-row">
+  <%=raw block.open %>
+
+    <% if @projects && !@projects.empty? %>
+      <% @projects.each do |project| %>
+
+        <h6 class="latowork-small-title latowork-collaborator-tasks-project-title"><%= project.title %> <%= link_to 'Info', lato_swpmanager.project_path(project.id) %></h6>
+
+        <%
+          index = view(:layout, :index).new(head: ['Status', 'Title'],
+          elements: project.tasks.where(collaborator_id: @collaborator.id, status: ['wait', 'develop']).order('status ASC'),
+          attributes: [:status, :title], link: lato_swpmanager.tasks_path, show_link: true, edit_link: false,
+          delete_link: false)
+        %>
+
+        <%=raw index %>
+
+      <% end %>
+    <% else %>
+      <h6 class="latowork-small-title">No projects for collaborator</h6>
+    <% end %>
+
+  <%=raw block.close %>
+</div>

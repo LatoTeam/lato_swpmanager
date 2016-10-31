@@ -1,0 +1,27 @@
+<%
+
+block = view(:layout, :block).new
+
+new_button = view(:component, :button).new(title: 'Create new project',
+url: lato_swpmanager.new_project_path, size: :small)
+
+actionbar = view(:layout, :actionbar).new(title: "Projects", widgets: [
+    {component: new_button, align: :right}
+  ])
+
+index = view(:layout, :index).new(head: ['Title', 'Client'], elements: @projects, attributes: [:title, :string_client],
+link: lato_swpmanager.projects_path, show_link: true, edit_link: true, delete_link: true)
+
+%>
+
+<%=raw actionbar %>
+
+<div class="content-row">
+  <%=raw block.open %>
+
+      <%=raw index %>
+
+      <%= will_paginate @projects,  previous_label: '←',  next_label: '→' %>
+
+  <%=raw block.close %>
+</div>

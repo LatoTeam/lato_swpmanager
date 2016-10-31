@@ -1,0 +1,22 @@
+<%
+
+block = view(:layout, :block).new
+
+back_button = view(:component, :button).new(title: 'All collaborators',
+url: lato_swpmanager.collaborators_path, size: :small)
+
+actionbar = view(:layout, :actionbar).new(title: "New collaborator",
+widgets: [{component: back_button, align: :right}])
+
+%>
+
+
+<%=raw actionbar %>
+
+<div class="content-row">
+  <%=raw block.open %>
+
+    <%= render 'lato_swpmanager/back/collaborators/shared/form', method: :post %>
+
+  <%=raw block.close %>
+</div>

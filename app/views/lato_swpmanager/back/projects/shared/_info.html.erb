@@ -1,0 +1,100 @@
+<table class="table">
+  <tr>
+    <th>Title</th>
+    <td><%= @project.title %></td>
+  </tr>
+  <tr>
+    <th>Deadline</th>
+    <td><%= @project.string_deadline %></td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td><%= @project.status %></td>
+  </tr>
+
+  <% if @superuser_admin %>
+    <tr>
+      <th>Quote</th>
+      <td><%= @project.quote %></td>
+    </tr>
+    <tr>
+      <th>Client</th>
+      <td><%= @project.string_client %></td>
+    </tr>
+  <% end %>
+
+  <% if !@project.main_domain.blank? %>
+    <tr>
+      <th>Main domain</th>
+      <td><%= @project.main_domain %></td>
+    </tr>
+  <% end %>
+
+  <% if !@project.hosting_provider.blank? %>
+    <tr>
+      <th>Hosting provider</th>
+      <td><%= @project.hosting_provider %></td>
+    </tr>
+  <% end %>
+
+  <% if !@project.ftp_server.blank? %>
+    <tr>
+      <th>FTP Server name</th>
+      <td><%= @project.ftp_server %></td>
+    </tr>
+  <% end %>
+
+  <% if !@project.ftp_user.blank? %>
+    <tr>
+      <th>FTP Username</th>
+      <td><%= @project.ftp_user %></td>
+    </tr>
+  <% end %>
+
+  <% if @superuser_admin && !@project.ftp_password.blank? %>
+    <tr>
+      <th>FTP Password</th>
+      <td><%= @project.ftp_password %></td>
+    </tr>
+  <% end %>
+
+  <% if !@project.ssh_server.blank? %>
+    <tr>
+      <th>SSH Server name</th>
+      <td><%= @project.ssh_server %></td>
+    </tr>
+  <% end %>
+
+  <% if !@project.ssh_user.blank? %>
+    <tr>
+      <th>SSH Username</th>
+      <td><%= @project.ssh_user %></td>
+    </tr>
+  <% end %>
+
+  <% if @superuser_admin && !@project.ssh_password.blank? %>
+    <tr>
+      <th>SSH Password</th>
+      <td><%= @project.ssh_password %></td>
+    </tr>
+  <% end %>
+
+  <tr>
+    <th>Project manager</th>
+    <td><%= @project.string_superuser_creator_name %></td>
+  </tr>
+  <tr>
+    <th>Collaborators</th>
+    <td><%= @project.string_collaborators %></td>
+  </tr>
+</table>
+
+<div class="latowork-project-environments">
+  <% if @project.staging_url && !@project.staging_url.blank? %>
+    <%= link_to 'Staging', @project.staging_url, class: 'lato-button button-small button-green', target: '_blank' %>
+  <% end %>
+
+  <% if @project.production_url && !@project.production_url.blank? %>
+    <%= link_to 'Production', @project.production_url, class: 'lato-button button-small button-green', target: '_blank' %>
+  <% end %>
+</div>

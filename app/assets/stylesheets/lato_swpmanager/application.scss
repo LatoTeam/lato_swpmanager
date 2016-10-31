@@ -1,0 +1,75 @@
+.latowork-small-title {
+  text-transform: uppercase;
+  border-bottom: solid 2px #293b5a;
+  padding-bottom: 5px;
+}
+
+.latowork-helper {
+  background: rgba(#293b5a, 0.1);
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+// tasks form on project tasks page
+.latowork-project-tasks-form {
+
+  height: 0;
+  overflow: hidden;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  .content-row {
+    .content-block {
+      margin-bottom: 0;
+    }
+  }
+
+  &.active {
+    height: 100%;
+    overflow: visible;
+  }
+
+}
+
+// environemnts button container on show project
+.latowork-project-environments {
+  text-align: center;
+}
+
+// project title on collaborator tasks list.
+.latowork-collaborator-tasks-project-title {
+  margin-top: 30px;
+
+  a {
+    float: right;
+    text-transform: none;
+    font-weight: lighter;
+  }
+}
+
+// task message object.
+.latowork-task-message {
+  margin-bottom: 20px;
+
+  .user {
+    font-size: 12px;
+  }
+
+  .message {
+    background: rgba(#293b5a, 0.1);
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+
+  &.current {
+    .user {
+      text-align: right;
+    }
+
+    .message {
+      background: rgba(#00c8e7, 0.1);
+      text-align: right;
+    }
+  }
+}

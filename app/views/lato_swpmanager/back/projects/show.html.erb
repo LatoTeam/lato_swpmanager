@@ -1,0 +1,45 @@
+<%
+
+block = view(:layout, :block).new
+
+back_button = view(:component, :button).new(title: 'All projects',
+url: lato_swpmanager.projects_path, size: :small)
+
+edit_button = view(:component, :button).new(title: 'Edit project',
+url: lato_swpmanager.edit_project_path(@project.id), size: :small)
+
+tasks_button = view(:component, :button).new(title: 'Tasks',
+url: lato_swpmanager.project_tasks_path(id: @project.id), size: :small, color: :yellow)
+
+actionbar_widgets = []
+if @superuser_admin
+  actionbar_widgets.push({component: back_button, align: :right})
+  actionbar_widgets.push({component: edit_button, align: :right})
+  actionbar_widgets.push({component: tasks_button, align: :right})
+end
+
+actionbar = view(:layout, :actionbar).new(title: 'Project view',
+widgets: actionbar_widgets)
+
+%>
+
+
+<%=raw actionbar %>
+
+<div class="content-row">
+  <%=raw block.open(width: 'two-third') %>
+
+    <h6 class="latowork-small-title"><%= @project.title %></h6>
+
+    <%=raw @project.description %>
+
+  <%=raw block.close %>
+
+  <%=raw block.open(width: 'third') %>
+
+    <h6 class="latowork-small-title">Info</h6>
+
+    <%= render 'lato_swpmanager/back/projects/shared/info' %>
+
+  <%=raw block.close %>
+</div>

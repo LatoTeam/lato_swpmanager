@@ -1,0 +1,46 @@
+<% method = :post if !defined? method %>
+
+<%= form_for([@collaborator], html: {class: "lato-form", multipart: true}, method: method) do |f| %>
+
+    <div class="form-group">
+
+      <%= raw view(:input, :text).new(value: @collaborator.name,
+              name: 'collaborator[name]', label: 'Name', width: 'half', required: true) %>
+
+      <%= raw view(:input, :text).new(value: @collaborator.surname,
+              name: 'collaborator[surname]', label: 'Surname', width: 'half', required: true) %>
+
+    </div>
+
+    <h2 class="form-section-title">Contacts</h2>
+
+    <div class="form-group">
+
+      <%= raw view(:input, :text).new(value: @collaborator.email,
+              name: 'collaborator[email]', label: 'Email', width: 'half', required: true) %>
+
+      <%= raw view(:input, :text).new(value: @collaborator.phone,
+              name: 'collaborator[phone]', label: 'Phone', width: 'half', required: false) %>
+
+    </div>
+
+    <% if method === :post || @collaborator.superuser_id.nil? %>
+
+      <h2 class="form-section-title">Access settings</h2>
+
+      <div class="form-group">
+
+        <%= raw view(:input, :checkbox).new(value: true,
+                name: 'collaborator[superuser]', label: 'Create access user', width: 'half', required: false) %>
+
+        <%= raw view(:input, :checkbox).new(value: false,
+                name: 'collaborator[superuser_admin]', label: 'Give addministrator permissions to access user', width: 'half', required: false) %>
+      </div>
+
+    <% end %>
+
+    <%= f.submit 'Save', class: 'lato-button', :data => { disable_with: false } %>
+
+</div>
+
+<% end %>

@@ -1,0 +1,14 @@
+<table class="table">
+  <tr>
+    <th>Total tasks</th>
+    <td><%= @collaborator.tasks.length %></td>
+  </tr>
+  <tr>
+    <th>Waiting tasks</th>
+    <td><%= @collaborator.tasks.where(status: 'wait').length %></td>
+  </tr>
+  <tr>
+    <th>Develop tasks</th>
+    <td><%= @collaborator.tasks.where(status: 'develop').length %></td>
+  </tr>
+</table>

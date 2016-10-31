@@ -1,0 +1,35 @@
+<% method = :post if !defined? method %>
+
+<%= form_for([@client], html: {class: "lato-form", multipart: true}, method: method) do |f| %>
+
+    <div class="form-group">
+
+      <%= raw view(:input, :text).new(value: @client.name,
+              name: 'client[name]', label: 'Name', width: 'large', required: true) %>
+
+    </div>
+
+    <h2 class="form-section-title">Contacts</h2>
+
+    <div class="form-group">
+
+      <%= raw view(:input, :text).new(value: @client.email,
+              name: 'client[email]', label: 'Email', width: 'half', required: false) %>
+
+      <%= raw view(:input, :text).new(value: @client.phone,
+              name: 'client[phone]', label: 'Phone', width: 'half', required: false) %>
+
+    </div>
+
+    <div class="form-group">
+
+      <%= raw view(:input, :text).new(value: @client.website,
+              name: 'client[website]', label: 'Website', width: 'large', required: false) %>
+
+    </div>
+
+    <%= f.submit 'Save', class: 'lato-button', :data => { disable_with: false } %>
+
+</div>
+
+<% end %>

@@ -1,0 +1,14 @@
+<%= form_for([@task_message], html: {class: "lato-form", multipart: true}, method: :post) do |f| %>
+
+  <div class="form-group">
+
+    <%= raw view(:input, :editor).new(value: @task_message.message,
+            name: 'task_message[message]', width: 'large', required: false) %>
+
+  </div>
+
+  <input type="hidden" name="task_message[task_id]" value="<%= @task.id %>">
+
+  <%= f.submit 'Post message', class: 'lato-button button-small', :data => { disable_with: false } %>
+
+<% end %>
