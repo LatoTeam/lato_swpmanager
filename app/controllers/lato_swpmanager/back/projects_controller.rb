@@ -94,6 +94,18 @@ module LatoSwpmanager
       end
     end
 
+    def stats
+      redirect_to lato_core.root_path and return false unless @superuser_admin
+
+      @project = Project.find(params[:id])
+      @tasks = Task.where(project_id: @project.id).order('end_date ASC')
+      @wait_tasks = @tasks.where(status: 'wait')
+      @develop_tasks = @tasks.where(status: 'develop')
+      @test_tasks = @tasks.where(status: 'test')
+      @completed_tasks = @tasks.where(status: 'completed')
+      @collaborators = @project.collaborators
+    end
+
     private def fetch_external_objects
       @clients = Client.all
       @collaborators = Collaborator.all

@@ -11,11 +11,15 @@ url: lato_swpmanager.edit_project_path(@project.id), size: :small)
 tasks_button = view(:component, :button).new(title: 'Tasks',
 url: lato_swpmanager.project_tasks_path(id: @project.id), size: :small, color: :yellow)
 
+stats_button = view(:component, :button).new(title: 'Stats',
+url: lato_swpmanager.project_stats_path(id: @project.id), size: :small, color: :green)
+
 actionbar_widgets = []
 if @superuser_admin
   actionbar_widgets.push({component: back_button, align: :right})
   actionbar_widgets.push({component: edit_button, align: :right})
   actionbar_widgets.push({component: tasks_button, align: :right})
+  actionbar_widgets.push({component: stats_button, align: :right})
 end
 
 actionbar = view(:layout, :actionbar).new(title: 'Project view',

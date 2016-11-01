@@ -1,0 +1,52 @@
+<%
+
+block = view(:layout, :block).new
+
+project_button = view(:component, :button).new(title: 'Go to project',
+url: lato_swpmanager.project_path(@project.id), size: :small)
+
+tasks_actionbar = view(:layout, :actionbar).new(title: "Stats", widgets: [
+    {component: project_button, align: :right}
+  ])
+
+%>
+
+<%=raw tasks_actionbar %>
+
+<!--<div class="content-row">
+  <%=raw block.open(width: 'small-12 medium-12') %>
+
+    <h6 class="latoswpmanager-small-title">Stats main info</h6>
+
+    <%= render 'lato_swpmanager/back/projects/shared/stats_main_info' %>
+
+  <%=raw block.close %>
+</div>-->
+
+<div class="content-row">
+  <%=raw block.open(width: 'small-12 medium-12') %>
+
+    <h6 class="latoswpmanager-small-title">Tasks distribution for status</h6>
+
+    <%= render 'lato_swpmanager/back/projects/shared/tasks_distribution_status' %>
+
+  <%=raw block.close %>
+</div>
+
+<div class="content-row">
+  <%=raw block.open(width: 'small-12 medium-6') %>
+
+    <h6 class="latoswpmanager-small-title">Tasks distribution for collaborators</h6>
+
+    <%= render 'lato_swpmanager/back/projects/shared/tasks_distribution_collaborators' %>
+
+  <%=raw block.close %>
+
+  <%=raw block.open(width: 'small-12 medium-6') %>
+
+    <h6 class="latoswpmanager-small-title">Expected time distribution for collaborators</h6>
+
+    <%= render 'lato_swpmanager/back/projects/shared/expected_time_distribution_collaborators' %>
+
+  <%=raw block.close %>
+</div>

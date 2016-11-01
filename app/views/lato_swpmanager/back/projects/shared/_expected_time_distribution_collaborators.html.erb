@@ -1,0 +1,21 @@
+<div class="latoswpmanager-progress-graph">
+
+  <% total = @tasks.sum(:expected_work_time) %>
+
+  <table class="table">
+    <% @collaborators.each do |collaborator| %>
+    <%
+      time_percetange = (collaborator.tasks.where(project_id: @project.id).sum(:expected_work_time) * 100) / total
+    %>
+    <tr>
+      <td><%= collaborator.string_complete_name %></td>
+      <td>
+        <div class="progress-bar">
+          <div class="actual-progress yellow" style="width: <%= time_percetange %>%"></div>
+        </div>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+
+</div>

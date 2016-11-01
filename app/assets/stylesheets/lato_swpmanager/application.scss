@@ -22,6 +22,28 @@ $yellow-sea     : #ffae03;
   margin-bottom: 5px;
 }
 
+.latoswpmanager-progress-graph {
+
+  td:first-child {
+    width: 50px;
+  }
+
+  .progress-bar {
+    height: 4px;
+    background-color: rgba($robin-blue, 0.1);
+  }
+
+  .actual-progress {
+    height: 4px;
+    width: 0;
+
+    &.green {background-color: $jungle-green;}
+    &.yellow {background-color: $yellow-sea;}
+    &.blue {background-color: $robin-blue;}
+    &.red {background-color: $scarlet;}
+  }
+}
+
 // tasks form on project tasks page
 .latoswpmanager-project-tasks-form {
 
@@ -116,26 +138,5 @@ $yellow-sea     : #ffae03;
       background: rgba($robin-blue, 0.1);
       text-align: right;
     }
-  }
-}
-
-// project progress bar
-.latoswpmanager-project-progress {
-
-  td:first-child {
-    width: 50px;
-  }
-
-  .progress-bar {
-    height: 4px;
-    background-color: rgba($robin-blue, 0.1);
-  }
-
-  .actual-progress {
-    height: 4px;
-    &.completed {background-color: $jungle-green;}
-    &.wait {background-color: $yellow-sea;}
-    &.develop {background-color: $robin-blue;}
-    &.test {background-color: $rhino;}
   }
 }

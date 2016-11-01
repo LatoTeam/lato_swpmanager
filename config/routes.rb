@@ -12,5 +12,6 @@ LatoSwpmanager::Engine.routes.draw do
 
   # Project extra
   get 'project_extra/tasks/:id', to: 'back/projects#tasks', as: 'project_tasks'
+  get 'project_extra/stats/:id', to: 'back/projects#stats', as: 'project_stats'
 
 end
