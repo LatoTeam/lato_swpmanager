@@ -4,7 +4,11 @@
   <tr>
     <td><%= collaborator.string_complete_name %></td>
     <td>
-      <%= (tasks_time / collaborator.work_time_per_day).round(1) %>
+      <% if collaborator.work_time_per_day %>
+        <%= (tasks_time / collaborator.work_time_per_day).round(1) %>
+      <% else %>
+        /
+      <% end %>
     </td>
   </tr>
   <% end %>
