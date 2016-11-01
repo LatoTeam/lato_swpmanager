@@ -7,8 +7,6 @@
     <%
       if total > 0
         tasks_percetange = (collaborator.tasks.where(project_id: @project.id).length * 100) / total
-      else
-        tasks_percetange = 0
       end
     %>
     <tr>
