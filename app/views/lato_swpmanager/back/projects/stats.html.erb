@@ -13,18 +13,16 @@ tasks_actionbar = view(:layout, :actionbar).new(title: "Stats", widgets: [
 
 <%=raw tasks_actionbar %>
 
-<!--<div class="content-row">
-  <%=raw block.open(width: 'small-12 medium-12') %>
+<div class="content-row">
+  <%=raw block.open(width: 'small-12 medium-8') %>
 
     <h6 class="latoswpmanager-small-title">Stats main info</h6>
 
     <%= render 'lato_swpmanager/back/projects/shared/stats_main_info' %>
 
   <%=raw block.close %>
-</div>-->
 
-<div class="content-row">
-  <%=raw block.open(width: 'small-12 medium-12') %>
+  <%=raw block.open(width: 'small-12 medium-4') %>
 
     <h6 class="latoswpmanager-small-title">Tasks distribution for status</h6>
 

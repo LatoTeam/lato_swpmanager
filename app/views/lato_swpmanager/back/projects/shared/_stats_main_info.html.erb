@@ -1,22 +1,46 @@
 <table class="table">
   <tr>
-    <th>Total tasks</th>
+    <th>Tasks numbers</th>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Total tasks number</td>
     <td><%= @tasks.length %></td>
   </tr>
   <tr>
-    <th>Wait tasks</th>
-    <td><%= @wait_tasks.length %></td>
+    <td>Without budget tasks number</td>
+    <td><%= @tasks.where(budget: nil).length %></td>
   </tr>
   <tr>
-    <th>Develop tasks</th>
-    <td><%= @develop_tasks.length %></td>
+    <td>Incorrect expected work time tasks number <i>(negative)</i></td>
+    <td><%= @tasks.where('expected_work_time < real_work_time').length %></td>
   </tr>
   <tr>
-    <th>Test tasks</th>
-    <td><%= @test_tasks.length %></td>
+    <td>Incorrect expected work time tasks number <i>(positive)</i></td>
+    <td><%= @tasks.where('expected_work_time > real_work_time').length %></td>
   </tr>
   <tr>
-    <th>Completed tasks</th>
-    <td><%= @completed_tasks.length %></td>
+    <th>Tasks work time</th>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Tasks expected work time</td>
+    <td><%= @tasks.sum(:expected_work_time) %></td>
+  </tr>
+  <tr>
+    <td>Tasks real work time</td>
+    <td><%= @completed_tasks.sum(:real_work_time) %></td>
+  </tr>
+  <tr>
+    <th>Project budget</th>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Tasks budget <i>(sum of every task budget)</i></td>
+    <td><%= @tasks.sum(:budget) %></td>
+  </tr>
+  <tr>
+    <td>Project quote <i>(project quote decided with client)</i></td>
+    <td><%= @project.quote %></td>
   </tr>
 </table>
