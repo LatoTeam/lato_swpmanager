@@ -24,9 +24,9 @@ tasks_actionbar = view(:layout, :actionbar).new(title: "Stats", widgets: [
 
   <%=raw block.open(width: 'small-12 medium-4') %>
 
-    <h6 class="latoswpmanager-small-title">Tasks distribution for status</h6>
+    <h6 class="latoswpmanager-small-title">Collaborators work days</h6>
 
-    <%= render 'lato_swpmanager/back/projects/shared/tasks_distribution_status' %>
+    <%= render 'lato_swpmanager/back/projects/shared/collaborators_work_days' %>
 
   <%=raw block.close %>
 </div>
@@ -45,6 +45,16 @@ tasks_actionbar = view(:layout, :actionbar).new(title: "Stats", widgets: [
     <h6 class="latoswpmanager-small-title">Expected time distribution for collaborators</h6>
 
     <%= render 'lato_swpmanager/back/projects/shared/expected_time_distribution_collaborators' %>
+
+  <%=raw block.close %>
+</div>
+
+<div class="content-row">
+  <%=raw block.open(width: 'small-12 medium-12') %>
+
+    <h6 class="latoswpmanager-small-title">Tasks distribution for status</h6>
+
+    <%= render 'lato_swpmanager/back/projects/shared/tasks_distribution_status' %>
 
   <%=raw block.close %>
 </div>
