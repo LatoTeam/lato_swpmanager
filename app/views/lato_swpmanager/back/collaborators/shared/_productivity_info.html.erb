@@ -1,0 +1,35 @@
+<%
+today_tasks = @collaborator.tasks.where(completed_date: Date.today)
+yesterday_tasks = @collaborator.tasks.where(completed_date: Date.yesterday)
+%>
+
+<% if !today_tasks.empty? || !yesterday_tasks.empty? %>
+  <table class="table">
+    <% if !today_tasks.empty? %>
+      <tr>
+        <th>Today tasks completed</th>
+        <th>Real work time</th>
+      </tr>
+      <% today_tasks.each do |task| %>
+        <tr>
+          <td>- <%= task.title %></td>
+          <td><%= task.real_work_time %></td>
+        </tr>
+      <% end %>
+    <% end %>
+    <% if !yesterday_tasks.empty? %>
+      <tr>
+        <th>Yesterday tasks completed</th>
+        <th>Real work time</th>
+      </tr>
+      <% yesterday_tasks.each do |task| %>
+        <tr>
+          <td>- <%= task.title %></td>
+          <td><%= task.real_work_time %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+<% else %>
+  <p>No data to show</p>
+<% end %>

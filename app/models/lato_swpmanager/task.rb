@@ -7,6 +7,10 @@ module LatoSwpmanager
 
     has_many :task_messages, dependent: :destroy
 
+    before_update do
+      set_complete_date
+    end
+
     # This function return a string with the correct start date.
     def string_start_date
       return self.start_date.strftime('%d/%m/%Y') if self.start_date
@@ -36,6 +40,16 @@ module LatoSwpmanager
     # This function return the number of messages of the task.
     def get_messages_number
       return self.task_messages.length
+    end
+
+    # This function update the complete date of the task if update change it to
+    # test / completed or to wait / develop
+    private def set_complete_date
+      if self.status === 'wait' || self.status === 'develop'
+        self.completed_date = nil
+      else self.status === 'test' || self.status === 'completed'
+        self.completed_date = Date.today
+      end
     end
 
   end
