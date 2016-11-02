@@ -114,7 +114,7 @@ module LatoSwpmanager
       @init_date = params[:init_date].to_date
       @end_date = @init_date + 6
 
-      @tasks = Task.where(project_id: @project.id).where('end_date >= ?', @init_date).where('end_date < ?', @end_date).order('start_date ASC')
+      @tasks = Task.where(project_id: @project.id).where('end_date >= ?', @init_date).where('end_date <= ?', @end_date).order('start_date ASC')
     end
 
     private def fetch_external_objects
