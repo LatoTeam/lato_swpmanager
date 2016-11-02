@@ -39,10 +39,10 @@ $yellow-sea     : #ffae03;
     height: 4px;
     width: 0;
 
-    &.green {background-color: $jungle-green;}
-    &.yellow {background-color: $yellow-sea;}
-    &.blue {background-color: $robin-blue;}
-    &.red {background-color: $scarlet;}
+    &.completed {background-color: $jungle-green;}
+    &.wait {background-color: $yellow-sea;}
+    &.develop {background-color: $robin-blue;}
+    &.test {background-color: $scarlet;}
   }
 }
 
@@ -75,12 +75,19 @@ $yellow-sea     : #ffae03;
 
   .timeline-task {
     background-color: $catskill-white;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 5px;
+    border-radius: 5px;
     margin-bottom: 10px;
+
+    &.completed {background-color: $jungle-green;}
+    &.wait {background-color: $yellow-sea;}
+    &.develop {background-color: $robin-blue;}
+    &.test {background-color: $scarlet;}
 
     .timeline-task-title {
       font-size: 10px;
+      color: #fff;
+      font-weight: bold;
     }
   }
 

@@ -30,7 +30,7 @@ tasks_actionbar = view(:layout, :actionbar).new(title: "Project timeline", widge
             <div class="timeline-day-title <%= date == Date.today ? 'today' : nil %>"><%= date.strftime('%d/%m') %></div>
             <div class="timeline-tasks">
               <% tasks.each do |task| %>
-                <div class="timeline-task">
+                <div class="timeline-task <%= task.status %>">
                   <div class="timeline-task-title"><%= task.title %></div>
                 </div>
               <% end %>
