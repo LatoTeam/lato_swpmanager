@@ -1,0 +1,22 @@
+<div class="latoswpmanager-timeline">
+
+  <a href="<%= lato_swpmanager.collaborator_path(@collaborator.id, init_date: @init_date - 1) %>#timeline" class="timeline-navigation-arrow prev"><</a>
+  <a href="<%= lato_swpmanager.collaborator_path(@collaborator.id, init_date: @init_date + 1) %>#timeline" class="timeline-navigation-arrow next">></a>
+
+  <% (@init_date..@end_date).to_a.each do |date| %>
+  <% tasks = @tasks.where('start_date <= ?', date).where('end_date >= ?', date) %>
+    <div class="timeline-day">
+      <div class="timeline-day-title <%= date == Date.today ? 'today' : nil %>"><%= date.strftime('%d/%m') %></div>
+      <div class="timeline-tasks">
+        <% tasks.each do |task| %>
+          <a href="<%= lato_swpmanager.task_path(task.id) %>" class="timeline-task <%= task.status %>">
+            <span class="timeline-task-time"><%= task.real_work_time ? task.real_work_time : task.expected_work_time %></span>
+            <div class="timeline-task-title"><%= task.title %></div>
+            <div class="timeline-task-info"><%= task.project.title %></div>
+          </a>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+</div>

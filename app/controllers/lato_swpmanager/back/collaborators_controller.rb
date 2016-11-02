@@ -45,6 +45,15 @@ module LatoSwpmanager
       end
 
       @projects = @collaborator.projects.where(status: 'develop').order('title ASC')
+      @tasks = @collaborator.tasks
+
+      if params[:init_date]
+        @init_date = params[:init_date].to_date
+        @end_date = @init_date + 6
+      else
+        @init_date = Date.yesterday
+        @end_date = @init_date + 6
+      end
     end
 
     def edit

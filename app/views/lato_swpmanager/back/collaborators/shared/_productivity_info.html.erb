@@ -1,6 +1,6 @@
 <%
-today_tasks = @collaborator.tasks.where(completed_date: Date.today)
-yesterday_tasks = @collaborator.tasks.where(completed_date: Date.yesterday)
+today_tasks = @tasks.where(completed_date: Date.today)
+yesterday_tasks = @tasks.where(completed_date: Date.yesterday)
 %>
 
 <% if !today_tasks.empty? || !yesterday_tasks.empty? %>
