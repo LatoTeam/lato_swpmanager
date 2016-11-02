@@ -50,10 +50,40 @@ $yellow-sea     : #ffae03;
   border-left: solid 1px $dusty-gray;
   clear: both;
   height: 400px;
+  position: relative;
+
+  .timeline-navigation-arrow {
+    text-decoration: none;
+    background: $robin-blue;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 28px;
+    line-height: 1em;
+    transition: all 0.3s;
+    position: absolute;
+
+    &.prev {
+      top: calc(50% - 15px);
+      left: -15px;
+    }
+
+    &.next {
+      top: calc(50% - 15px);
+      right: -15px;
+    }
+
+    &:hover {
+      box-shadow: 0 1px 4px rgba(41, 59, 90, 0.25);
+    }
+  }
 
   .timeline-day {
-    width: 14.25%;
-    float: left;
+    width: 14%;
+    display: inline-block;
     border-right: solid 1px $dusty-gray;
     height: 400px;
   }
@@ -69,7 +99,7 @@ $yellow-sea     : #ffae03;
 
   .timeline-tasks {
     padding: 10px;
-    height: 380px;
+    height: 375px;
     overflow-y: scroll;
   }
 
@@ -79,6 +109,13 @@ $yellow-sea     : #ffae03;
     border-radius: 5px;
     margin-bottom: 10px;
     position: relative;
+    display: block;
+    text-decoration: none;
+    transition: all 0.3s;
+
+    &:hover {
+      box-shadow: 0 1px 4px rgba(41, 59, 90, 0.25);
+    }
 
     &.completed {background-color: $jungle-green;}
     &.wait {background-color: $yellow-sea;}
@@ -107,7 +144,7 @@ $yellow-sea     : #ffae03;
       text-align: center;
     }
 
-    .timeline-task-collaborator {
+    .timeline-task-info {
       border-top: solid 1px #fff;
       font-size: 8px;
       color: #fff;
