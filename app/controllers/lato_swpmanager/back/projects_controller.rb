@@ -92,6 +92,14 @@ module LatoSwpmanager
       else
         @task = Task.new
       end
+
+      if params[:init_date]
+        @init_date = params[:init_date].to_date
+        @end_date = @init_date + 6
+      else
+        @init_date = Date.yesterday
+        @end_date = @init_date + 6
+      end
     end
 
     def stats
@@ -104,17 +112,6 @@ module LatoSwpmanager
       @test_tasks = @tasks.where(status: 'test')
       @completed_tasks = @tasks.where(status: 'completed')
       @collaborators = @project.collaborators
-    end
-
-    def timeline
-      redirect_to lato_core.root_path and return false unless @superuser_admin
-
-      @project = Project.find(params[:id])
-
-      @init_date = params[:init_date].to_date
-      @end_date = @init_date + 6
-
-      @tasks = Task.where(project_id: @project.id).where('end_date >= ?', @init_date).where('end_date <= ?', @end_date).order('start_date ASC')
     end
 
     private def fetch_external_objects
