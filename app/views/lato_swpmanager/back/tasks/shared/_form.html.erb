@@ -38,7 +38,7 @@ send = 'Update' if method === :put
   <div class="form-group">
 
     <%= raw view(:input, :date).new(value: @task.string_start_date,
-            name: 'task[start_date]', label: 'Start date', width: 'half', required: false) %>
+            name: 'task[start_date]', label: 'Start date', width: 'half', required: true) %>
 
     <%= raw view(:input, :date).new(value: @task.string_end_date,
             name: 'task[end_date]', label: 'End date', width: 'half', required: true) %>

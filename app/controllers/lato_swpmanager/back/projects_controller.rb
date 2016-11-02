@@ -107,6 +107,8 @@ module LatoSwpmanager
     end
 
     def timeline
+      redirect_to lato_core.root_path and return false unless @superuser_admin
+      
       @project = Project.find(params[:id])
 
       @init_date = params[:init_date].to_date
