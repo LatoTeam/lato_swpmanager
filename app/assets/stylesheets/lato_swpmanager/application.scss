@@ -65,6 +65,7 @@ $yellow-sea     : #ffae03;
     line-height: 1em;
     transition: all 0.3s;
     position: absolute;
+    z-index: 1;
 
     &.prev {
       top: calc(50% - 15px);
