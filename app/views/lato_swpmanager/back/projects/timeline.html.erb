@@ -1,0 +1,44 @@
+<%
+
+block = view(:layout, :block).new
+
+project_button = view(:component, :button).new(title: 'Go to project',
+url: lato_swpmanager.project_path(@project.id), size: :small)
+
+tasks_button = view(:component, :button).new(title: 'Tasks',
+url: lato_swpmanager.project_tasks_path(id: @project.id), size: :small, color: :yellow)
+
+tasks_actionbar = view(:layout, :actionbar).new(title: "Project timeline", widgets: [
+    {component: project_button, align: :right},
+    {component: tasks_button, align: :right}
+  ])
+
+%>
+
+<%=raw tasks_actionbar %>
+
+<div class="content-row">
+  <%=raw block.open(width: 'large') %>
+
+      <h6 class="latoswpmanager-small-title">Tasks timeline from <%= @init_date.strftime('%d/%m') %> to <%= @end_date.strftime('%d/%m') %></h6>
+
+      <div class="latoswpmanager-timeline">
+
+        <% (@init_date..@end_date).to_a.each do |date| %>
+        <% tasks = @tasks.where('start_date <= ?', date).where('end_date >= ?', date) %>
+          <div class="timeline-day">
+            <div class="timeline-day-title <%= date == Date.today ? 'today' : nil %>"><%= date.strftime('%d/%m') %></div>
+            <div class="timeline-tasks">
+              <% tasks.each do |task| %>
+                <div class="timeline-task">
+                  <div class="timeline-task-title"><%= task.title %></div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+      </div>
+
+  <%=raw block.close %>
+</div>

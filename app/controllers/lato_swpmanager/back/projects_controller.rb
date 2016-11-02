@@ -106,6 +106,15 @@ module LatoSwpmanager
       @collaborators = @project.collaborators
     end
 
+    def timeline
+      @project = Project.find(params[:id])
+
+      @init_date = params[:init_date].to_date
+      @end_date = @init_date + 6
+
+      @tasks = Task.where(project_id: @project.id).where('start_date >= ?', @init_date).where('start_date < ?', @end_date).order('start_date ASC')
+    end
+
     private def fetch_external_objects
       @clients = Client.all
       @collaborators = Collaborator.all

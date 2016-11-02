@@ -5,8 +5,12 @@ block = view(:layout, :block).new
 project_button = view(:component, :button).new(title: 'Go to project',
 url: lato_swpmanager.project_path(@project.id), size: :small)
 
+timeline_button = view(:component, :button).new(title: 'Timeline',
+url: lato_swpmanager.project_timeline_path(@project.id, Date.today), size: :small, color: :yellow)
+
 tasks_actionbar = view(:layout, :actionbar).new(title: "Tasks", widgets: [
-    {component: project_button, align: :right}
+    {component: project_button, align: :right},
+    {component: timeline_button, align: :right}
   ])
 
 index = view(:layout, :index).new(head: ['End date', 'Title'],
@@ -28,7 +32,6 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 completed_index = view(:layout, :index).new(head: ['Title'],
 elements: @completed_tasks, attributes: [:title],
 link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link: true)
-
 
 %>
 

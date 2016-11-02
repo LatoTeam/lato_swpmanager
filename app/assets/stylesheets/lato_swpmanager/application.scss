@@ -9,6 +9,8 @@ $scarlet        : #e32908;
 $radical-red    : #ff2f6c;
 $yellow-sea     : #ffae03;
 
+// STYLE FOR MORE PAGES
+// /////////////////////////////////////////////////////////////////////////////
 
 .latoswpmanager-small-title {
   text-transform: uppercase;
@@ -43,6 +45,48 @@ $yellow-sea     : #ffae03;
     &.red {background-color: $scarlet;}
   }
 }
+
+.latoswpmanager-timeline {
+  border-left: solid 1px $dusty-gray;
+  clear: both;
+  height: 400px;
+
+  .timeline-day {
+    width: 14.25%;
+    float: left;
+    border-right: solid 1px $dusty-gray;
+    height: 400px;
+  }
+
+  .timeline-day-title {
+    text-align: center;
+
+    &.today {
+      color: $robin-blue;
+      font-weight: bold;
+    }
+  }
+
+  .timeline-tasks {
+    padding: 10px;
+    height: 380px;
+    overflow-y: scroll;
+  }
+
+  .timeline-task {
+    background-color: $catskill-white;
+    padding: 10px;
+    border-radius: 10px;
+
+    .timeline-task-title {
+      font-size: 10px;
+    }
+  }
+
+}
+
+// STYLE FOR CUSTOM PAGES
+// /////////////////////////////////////////////////////////////////////////////
 
 // tasks form on project tasks page
 .latoswpmanager-project-tasks-form {
