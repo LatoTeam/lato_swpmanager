@@ -108,13 +108,13 @@ module LatoSwpmanager
 
     def timeline
       redirect_to lato_core.root_path and return false unless @superuser_admin
-      
+
       @project = Project.find(params[:id])
 
       @init_date = params[:init_date].to_date
       @end_date = @init_date + 6
 
-      @tasks = Task.where(project_id: @project.id).where('start_date >= ?', @init_date).where('start_date < ?', @end_date).order('start_date ASC')
+      @tasks = Task.where(project_id: @project.id, status: ['wait', 'develop']).where('start_date < ?', @end_date).order('start_date ASC')
     end
 
     private def fetch_external_objects
