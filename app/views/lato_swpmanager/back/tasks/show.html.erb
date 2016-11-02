@@ -9,7 +9,7 @@ project_button = view(:component, :button).new(title: 'Project info',
 url: lato_swpmanager.project_path(id: @task.project_id), size: :small)
 
 edit_button = view(:component, :button).new(title: 'Edit',
-url: lato_swpmanager.edit_task_path(id: @task.id), size: :small)
+url: lato_swpmanager.edit_task_path(id: @task.id), size: :small, color: :yellow)
 
 actionbar_widgets = [{component: project_button, align: :right}]
 if @superuser_admin
