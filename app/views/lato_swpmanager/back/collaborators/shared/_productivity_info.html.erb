@@ -13,7 +13,7 @@ yesterday_tasks = @collaborator.tasks.where(completed_date: Date.yesterday)
       <% today_tasks.each do |task| %>
         <tr>
           <td>- <%= task.title %></td>
-          <td><%= task.real_work_time %></td>
+          <td style="text-align: center"><%= task.real_work_time %></td>
         </tr>
       <% end %>
     <% end %>
@@ -25,7 +25,7 @@ yesterday_tasks = @collaborator.tasks.where(completed_date: Date.yesterday)
       <% yesterday_tasks.each do |task| %>
         <tr>
           <td>- <%= task.title %></td>
-          <td><%= task.real_work_time %></td>
+          <td style="text-align: center"><%= task.real_work_time %></td>
         </tr>
       <% end %>
     <% end %>
