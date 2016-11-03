@@ -47,7 +47,7 @@ module LatoSwpmanager
     private def set_complete_date
       if self.status === 'wait' || self.status === 'develop'
         self.completed_date = nil
-      else (self.status === 'test' || self.status === 'completed') && self.completed_date.nil?
+      elsif (self.status === 'test' || self.status === 'completed') && self.completed_date.nil?
         self.completed_date = Date.today
       end
     end
