@@ -12,18 +12,22 @@ $yellow-sea     : #ffae03;
 // STYLE FOR MORE PAGES
 // /////////////////////////////////////////////////////////////////////////////
 
+
+// single title
 .latoswpmanager-small-title {
   text-transform: uppercase;
   border-bottom: solid 2px $rhino;
   padding-bottom: 5px;
 }
 
+// helper for user guide
 .latoswpmanager-helper {
   background: rgba($rhino, 0.1);
   padding: 10px;
   margin-bottom: 5px;
 }
 
+// progres graph
 .latoswpmanager-progress-graph {
 
   td:first-child {
@@ -46,6 +50,7 @@ $yellow-sea     : #ffae03;
   }
 }
 
+// tasks timeline
 .latoswpmanager-timeline {
   border-left: solid 1px $dusty-gray;
   clear: both;
@@ -149,9 +154,19 @@ $yellow-sea     : #ffae03;
       border-top: solid 1px #fff;
       font-size: 8px;
       color: #fff;
+      line-height: 1.1em;
+      padding-top: 5px;
     }
   }
 
+}
+
+// custom content row style
+.latoswpmanager-content-row {
+
+  .table .actions {
+    text-align: right;
+  }
 }
 
 // STYLE FOR CUSTOM PAGES

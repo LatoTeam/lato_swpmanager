@@ -65,6 +65,8 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 <div class="content-row" id="timeline">
   <%=raw block.open(width: 'large') %>
 
+    <h6 class="latoswpmanager-small-title">Timeline</h6>
+
     <%= render 'lato_swpmanager/back/projects/shared/timeline' %>
 
   <%=raw block.close %>
@@ -78,6 +80,9 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
       <%=raw index %>
 
   <%=raw block.close %>
+</div>
+
+<div class="content-row latoswpmanager-content-row">
 
   <% if !@develop_tasks.empty? %>
     <%=raw block.open(width: 'large') %>
@@ -88,7 +93,6 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 
     <%=raw block.close %>
   <% end %>
-
 
   <% if !@test_tasks.empty? %>
     <%=raw block.open(width: 'large') %>
