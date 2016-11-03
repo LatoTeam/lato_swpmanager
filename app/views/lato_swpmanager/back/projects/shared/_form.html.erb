@@ -44,7 +44,7 @@
               options: view(:input, :select).generate_options_from_activerecords(@collaborators, :id, :string_complete_name),
               option_blank: false, width: 'two-third', required: false, multiple: true) %>
 
-      <%= raw view(:input, :select).new(value: @project.get_collaborators_id,
+      <%= raw view(:input, :select).new(value: @project.superuser_manager_id,
               name: 'project[superuser_manager_id]', label: 'Project manager',
               options: view(:input, :select).generate_options_from_activerecords(@superusers, :id, :name),
               option_blank: false, width: 'third', required: false, multiple: false) %>
