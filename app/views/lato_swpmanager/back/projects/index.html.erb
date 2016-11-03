@@ -5,7 +5,7 @@ block = view(:layout, :block).new
 new_button = view(:component, :button).new(title: 'Create new project',
 url: lato_swpmanager.new_project_path, size: :small)
 
-actionbar = view(:layout, :actionbar).new(title: "Projects", widgets: [
+actionbar = view(:layout, :actionbar).new(title: "My projects", widgets: [
     {component: new_button, align: :right}
   ])
 
