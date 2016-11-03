@@ -12,7 +12,7 @@ module LatoSwpmanager
       if @superuser_superadmin
         @projects = Project.all.paginate(page: params[:page], per_page: 20).order('title ASC')
       else
-        @projects = Project.where(superuser_creator_id: @superuser.id).paginate(page: params[:page], per_page: 20).order('title ASC')
+        @projects = Project.where(superuser_manager_id: @superuser.id).paginate(page: params[:page], per_page: 20).order('title ASC')
       end
     end
 
