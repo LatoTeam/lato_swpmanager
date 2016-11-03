@@ -44,24 +44,39 @@ module LatoSwpmanager
     def show
       @project = Project.find(params[:id])
       @tasks = @project.tasks
-
-      if !@superuser_admin && !(@superuser_collaborator.projects.include? @project)
+      # check user is collaborator of project
+      if (!@superuser_admin && !(@superuser_collaborator.projects.include? @project))
+        redirect_to lato_core.root_path and return false
+      end
+      # check user is manager of project
+      if (@superuser_admin && !(@project.superuser_manager_id === @superuser.id))
         redirect_to lato_core.root_path and return false
       end
     end
 
     def edit
+      # check user is admin
       redirect_to lato_core.root_path and return false unless @superuser_admin
-
+      # find project
       @project = Project.find(params[:id])
+      # check user is manager of project
+      if (@superuser_admin && !(@project.superuser_manager_id === @superuser.id))
+        redirect_to lato_core.root_path and return false
+      end
+      # fetch external object
       fetch_external_objects
     end
 
     def update
+      # check user is admin
       redirect_to lato_core.root_path and return false unless @superuser_admin
-
+      # find project
       project = Project.find(params[:id])
-
+      # check user is manager of project
+      if (@superuser_admin && !(project.superuser_manager_id === @superuser.id))
+        redirect_to lato_core.root_path and return false
+      end
+      # exec update
       if project.update(project_params)
         flash[:success] = "Project updated"
       else
@@ -72,10 +87,15 @@ module LatoSwpmanager
     end
 
     def destroy
+      # check superuser is admin
       redirect_to lato_core.root_path and return false unless @superuser_admin
-
+      # find project
       project = Project.find(params[:id])
-
+      # check user is manager of project
+      if (@superuser_admin && !(project.superuser_manager_id === @superuser.id))
+        redirect_to lato_core.root_path and return false
+      end
+      # destroy project
       project.destroy
 
       flash[:success] = "Project deleted"
@@ -83,24 +103,28 @@ module LatoSwpmanager
     end
 
     def tasks
+      # check superuser is admin
       redirect_to lato_core.root_path and return false unless @superuser_admin
-
+      # find project
       @project = Project.find(params[:id])
-
+      # check user is manager of project
+      if (@superuser_admin && !(@project.superuser_manager_id === @superuser.id))
+        redirect_to lato_core.root_path and return false
+      end
+      # find datas
       @tasks = Task.where(project_id: @project.id).order('end_date ASC')
-
       @deadline_tasks = @tasks.where('end_date <= ?', Date.today + 1).where.not(status: 'completed')
       @wait_tasks = @tasks.where(status: 'wait')
       @develop_tasks = @tasks.where(status: 'develop')
       @test_tasks = @tasks.where(status: 'test')
       @completed_tasks = @tasks.where(status: 'completed')
-
+      # prepare datas for form
       if params[:task_id]
         @task = Task.find(params[:task_id])
       else
         @task = Task.new
       end
-
+      # prepare datas for timeline
       if params[:init_date]
         @init_date = params[:init_date].to_date
         @end_date = @init_date + 6
@@ -111,10 +135,15 @@ module LatoSwpmanager
     end
 
     def stats
+      # check user is admin
       redirect_to lato_core.root_path and return false unless @superuser_admin
-
+      # find project
       @project = Project.find(params[:id])
-
+      # check user is manager of project
+      if (@superuser_admin && !(@project.superuser_manager_id === @superuser.id))
+        redirect_to lato_core.root_path and return false
+      end
+      # find datas
       @tasks = Task.where(project_id: @project.id).order('end_date ASC')
       @wait_tasks = @tasks.where(status: 'wait')
       @develop_tasks = @tasks.where(status: 'develop')
