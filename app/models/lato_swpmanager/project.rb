@@ -29,6 +29,12 @@ module LatoSwpmanager
       return superuser.name if superuser
     end
 
+    # This function return the name of the superuser manager of the project.
+    def string_superuser_manager_name
+      superuser = LatoCore::Superuser.find_by(id: self.superuser_manager_id)
+      return superuser.name if superuser
+    end
+
     # This function return a string with all names of collaborators of project.
     def string_collaborators
       names = []
