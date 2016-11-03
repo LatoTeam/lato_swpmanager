@@ -9,7 +9,7 @@ actionbar = view(:layout, :actionbar).new(title: "Projects", widgets: [
     {component: new_button, align: :right}
   ])
 
-index = view(:layout, :index).new(head: ['Title', 'Client'], elements: @projects, attributes: [:title, :string_client],
+index = view(:layout, :index).new(head: ['Title', 'Deadline'], elements: @projects, attributes: [:title, :string_deadline],
 link: lato_swpmanager.projects_path, show_link: true, edit_link: true, delete_link: true)
 
 %>
