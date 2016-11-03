@@ -15,7 +15,8 @@ module LatoSwpmanager
 
     private def set_superuser_data
       @superuser = core_getCurrentUser
-      @superuser_admin = core_controlPermission(2)
+      @superuser_admin = core_controlPermission(swpmanager_getCollaboratorAdminSuperuserPermission)
+      @superuser_superadmin = core_controlPermission(6)
       @superuser_collaborator = Collaborator.find_by(superuser_id: @superuser.id)
     end
 
@@ -37,7 +38,7 @@ module LatoSwpmanager
       params.require(:project).permit(:title, :deadline, :quote, :client_id,
       :description, :status, :staging_url, :production_url,
       :ftp_server, :ftp_user, :ftp_password, :ssh_server, :ssh_user, :ssh_password,
-      :main_domain, :hosting_provider, collaborators_id: [])
+      :main_domain, :hosting_provider, :superuser_manager_id, collaborators_id: [])
     end
 
     protected def client_params

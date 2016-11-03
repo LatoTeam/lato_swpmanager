@@ -42,10 +42,12 @@ module LatoSwpmanager
 
     # This function create a new superuser with collaborator data.
     private def create_superuser
-      permission = 1
-      permission = 2 if self.superuser_admin && (self.superuser_admin == '1' || self.superuser_admin == true)
+      permission = swpmanager_getCollaboratorSuperuserPermission
+      if self.superuser_admin && (self.superuser_admin == '1' || self.superuser_admin == true)
+        permission = swpmanager_getCollaboratorAdminSuperuserPermission
+      end
       superuser = LatoCore::Superuser.new(email: self.email, name: self.string_complete_name,
-      username: self.surname.downcase, password: 'password',
+      username: self.string_complete_name.parameterize, password: 'password',
       password_confirmation: 'password', permission: permission)
       unless superuser.save
         errors.add('Access user', 'for this email already exist')

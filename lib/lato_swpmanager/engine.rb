@@ -15,7 +15,7 @@ module LatoSwpmanager
     initializer 'Add gem routes to application',
                 before: :load_config_initializers do
       Rails.application.routes.append do
-        # change "/lato/starter" with the lato module base url
+        # change "/lato/swpmanager" with the lato module base url
         mount LatoSwpmanager::Engine, at: '/lato/swpmanager'
       end
     end

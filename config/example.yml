@@ -1,0 +1,11 @@
+# Basic informations
+################################################################################
+# Please, set a correct value for these informations
+
+# Set the default collaborator superuser permission
+
+# collaborator_superuser_permission: 1
+
+# Set default collaborator admin superuser permission
+
+# collaborator_admin_superuser_permission: 2

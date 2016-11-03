@@ -23,11 +23,6 @@ module LatoSwpmanager
       return self.deadline.strftime('%d/%m/%Y') if self.deadline
     end
 
-    # This function return a string with the client name for project.
-    def string_client
-      return self.client.name if self.client
-    end
-
     # This function return the name of the superuser creator of the project.
     def string_superuser_creator_name
       superuser = LatoCore::Superuser.find_by(id: self.superuser_creator_id)

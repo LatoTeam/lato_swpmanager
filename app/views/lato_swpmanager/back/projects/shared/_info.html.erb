@@ -13,10 +13,12 @@
       <th>Quote</th>
       <td><%= @project.quote %></td>
     </tr>
-    <tr>
-      <th>Client</th>
-      <td><%= @project.string_client %></td>
-    </tr>
+    <% if @project.client_id %>
+      <tr>
+        <th>Client</th>
+        <td></td>
+      </tr>
+    <% end %>
   <% end %>
 
   <tr>

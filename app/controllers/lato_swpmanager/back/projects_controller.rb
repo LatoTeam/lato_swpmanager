@@ -6,26 +6,32 @@ module LatoSwpmanager
     end
 
     def index
+      # check user is admin
       redirect_to lato_core.root_path and return false unless @superuser_admin
-
-      @projects = Project.all.paginate(page: params[:page], per_page: 20).order('title ASC')
+      # find correct projects for user
+      if @superuser_superadmin
+        @projects = Project.all.paginate(page: params[:page], per_page: 20).order('title ASC')
+      else
+        @projects = Project.where(superuser_creator_id: @superuser.id).paginate(page: params[:page], per_page: 20).order('title ASC')
+      end
     end
 
     def new
+      # check user is admin
       redirect_to lato_core.root_path and return false unless @superuser_admin
-
+      # generate new project
       @project = Project.new
       fetch_external_objects
     end
 
     def create
+      # check user is admin
       redirect_to lato_core.root_path and return false unless @superuser_admin
-
+      # generate project
       project = Project.new(project_params)
-
       # save superuser creator
       project.superuser_creator_id = @superuser.id
-
+      #  save project
       if project.save
         flash[:success] = "Project created"
         redirect_to lato_swpmanager.project_path(project.id)
@@ -69,6 +75,7 @@ module LatoSwpmanager
       redirect_to lato_core.root_path and return false unless @superuser_admin
 
       project = Project.find(params[:id])
+
       project.destroy
 
       flash[:success] = "Project deleted"
@@ -79,6 +86,7 @@ module LatoSwpmanager
       redirect_to lato_core.root_path and return false unless @superuser_admin
 
       @project = Project.find(params[:id])
+
       @tasks = Task.where(project_id: @project.id).order('end_date ASC')
 
       @deadline_tasks = @tasks.where('end_date <= ?', Date.today + 1).where.not(status: 'completed')
@@ -106,6 +114,7 @@ module LatoSwpmanager
       redirect_to lato_core.root_path and return false unless @superuser_admin
 
       @project = Project.find(params[:id])
+
       @tasks = Task.where(project_id: @project.id).order('end_date ASC')
       @wait_tasks = @tasks.where(status: 'wait')
       @develop_tasks = @tasks.where(status: 'develop')
@@ -115,8 +124,9 @@ module LatoSwpmanager
     end
 
     private def fetch_external_objects
-      @clients = Client.all
+      @clients = false
       @collaborators = Collaborator.all
+      @superusers = LatoCore::Superuser.where('permission >= ?', swpmanager_getCollaboratorAdminSuperuserPermission)
     end
 
   end

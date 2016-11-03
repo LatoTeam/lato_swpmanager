@@ -1,8 +1,8 @@
 module LatoSwpmanager
   module Interface
 
-    require 'lato_swpmanager/interface/example'
-    include LatoSwpmanager::Interface::Example
-    
+    require 'lato_swpmanager/interface/collaborators'
+    include LatoSwpmanager::Interface::Collaborators
+
   end
 end

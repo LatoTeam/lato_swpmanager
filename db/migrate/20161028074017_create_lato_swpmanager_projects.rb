@@ -20,6 +20,7 @@ class CreateLatoSwpmanagerProjects < ActiveRecord::Migration[5.0]
 
       t.integer :client_id
       t.integer :superuser_creator_id
+      t.integer :superuser_manager_id
 
       t.timestamps
     end

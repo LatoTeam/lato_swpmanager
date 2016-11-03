@@ -1,0 +1,4 @@
+include LatoSwpmanager::Interface
+
+SWPMANAGER_COLLABORATORSUPERUSERPERMISSION = swpmanager_getCollaboratorSuperuserPermission
+SWPMANAGER_COLLABORATORADMINSUPERUSERPERMISSION = swpmanager_getCollaboratorAdminSuperuserPermission

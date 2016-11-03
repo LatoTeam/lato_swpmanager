@@ -17,12 +17,14 @@
     <div class="form-group">
 
       <%= raw view(:input, :number).new(value: @project.quote,
-              name: 'project[quote]', label: 'Quote', width: 'half', required: false) %>
+              name: 'project[quote]', label: 'Quote', width: (@clients ? 'half' : 'large'), required: false) %>
 
-      <%= raw view(:input, :select).new(value: @project.client_id,
-              name: 'project[client_id]', label: 'Client',
-              options: view(:input, :select).generate_options_from_activerecords(@clients, :id, :name),
-              option_blank: false, width: 'half', required: false, multiple: false) %>
+      <% if @clients %>
+        <%= raw view(:input, :select).new(value: @project.client_id,
+                name: 'project[client_id]', label: 'Client',
+                options: [],
+                option_blank: false, width: 'half', required: false, multiple: false) %>
+      <% end %>
 
     </div>
 
@@ -38,9 +40,14 @@
     <div class="form-group">
 
       <%= raw view(:input, :select).new(value: @project.get_collaborators_id,
-              name: 'project[collaborators_id][]', label: 'Collaborators list',
+              name: 'project[collaborators_id][]', label: 'Collaborators',
               options: view(:input, :select).generate_options_from_activerecords(@collaborators, :id, :string_complete_name),
-              option_blank: false, width: 'large', required: false, multiple: true) %>
+              option_blank: false, width: 'two-third', required: false, multiple: true) %>
+
+      <%= raw view(:input, :select).new(value: @project.get_collaborators_id,
+              name: 'project[superuser_manager_id]', label: 'Project manager',
+              options: view(:input, :select).generate_options_from_activerecords(@superusers, :id, :name),
+              option_blank: false, width: 'third', required: false, multiple: false) %>
 
     </div>
 
