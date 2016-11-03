@@ -52,7 +52,6 @@ $yellow-sea     : darken(#ffae03, 5%);
 
 // tasks timeline
 .latoswpmanager-timeline {
-  border-left: solid 1px $dusty-gray;
   clear: both;
   height: 400px;
   position: relative;
@@ -61,13 +60,12 @@ $yellow-sea     : darken(#ffae03, 5%);
     text-decoration: none;
     background: $robin-blue;
     color: #fff;
-    width: 30px;
-    height: 30px;
     display: inline-block;
     text-align: center;
-    border-radius: 50%;
-    font-size: 28px;
+    border-radius: 5px;
+    font-size: 20px;
     line-height: 1em;
+    padding: 10px 5px;
     transition: all 0.3s;
     position: absolute;
     z-index: 1;
@@ -88,10 +86,14 @@ $yellow-sea     : darken(#ffae03, 5%);
   }
 
   .timeline-day {
-    width: 14%;
-    display: inline-block;
+    width: 14.25%;
+    float: left;
     border-right: solid 1px $dusty-gray;
     height: 400px;
+
+    &:last-child {
+      border: none;
+    }
   }
 
   .timeline-day-title {
