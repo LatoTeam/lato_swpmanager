@@ -28,7 +28,7 @@ module LatoSwpmanager
           config = YAML.load(
             File.read(File.expand_path("#{Rails.root}/config/lato/swpmanager.yml", __FILE__))
           )
-          if config['collaborator_admin_superuser_permission']
+          if config && config['collaborator_admin_superuser_permission']
             permission = config['collaborator_admin_superuser_permission']
           end
         end
