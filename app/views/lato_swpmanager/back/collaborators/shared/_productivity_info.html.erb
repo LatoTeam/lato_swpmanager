@@ -7,29 +7,37 @@ yesterday_tasks = @tasks.where(completed_date: Date.yesterday)
   <table class="table">
     <% if !today_tasks.empty? %>
       <tr>
-        <th>Today tasks completed</th>
+        <th>Today info</th>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Tasks completed</td>
         <td><%= today_tasks.length %></td>
       </tr>
       <tr>
-        <th>Today tasks expected time</th>
+        <td>Tasks expected time</td>
         <td><%= today_tasks.sum(:expected_work_time) %></td>
       </tr>
       <tr>
-        <th>Today tasks real time</th>
+        <td>Tasks real time</td>
         <td><%= today_tasks.sum(:real_work_time) %></td>
       </tr>
     <% end %>
     <% if !yesterday_tasks.empty? %>
       <tr>
-        <th>Testerday tasks completed</th>
+        <th>Yesterday info</th>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Tasks completed</td>
         <td><%= yesterday_tasks.length %></td>
       </tr>
       <tr>
-        <th>Testerday tasks expected time</th>
+        <td>Tasks expected time</td>
         <td><%= yesterday_tasks.sum(:expected_work_time) %></td>
       </tr>
       <tr>
-        <th>Testerday tasks real time</th>
+        <td>Tasks real time</td>
         <td><%= yesterday_tasks.sum(:real_work_time) %></td>
       </tr>
     <% end %>
