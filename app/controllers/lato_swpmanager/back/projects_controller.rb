@@ -45,11 +45,7 @@ module LatoSwpmanager
       @project = Project.find(params[:id])
       @tasks = @project.tasks
       # check user is collaborator of project
-      if (!@superuser_admin && !(@superuser_collaborator.projects.include? @project))
-        redirect_to lato_core.root_path and return false
-      end
-      # check user is manager of project
-      if (!@superuser_superadmin && @superuser_admin && !(@project.superuser_manager_id === @superuser.id))
+      if (!@superuser_superadmin && !(@superuser_collaborator.projects.include? @project) && !(@project.superuser_manager_id === @superuser.id))
         redirect_to lato_core.root_path and return false
       end
     end
@@ -60,7 +56,7 @@ module LatoSwpmanager
       # find project
       @project = Project.find(params[:id])
       # check user is manager of project
-      if (!@superuser_superadmin && @superuser_admin && !(@project.superuser_manager_id === @superuser.id))
+      if (!@superuser_superadmin && !(@project.superuser_manager_id === @superuser.id))
         redirect_to lato_core.root_path and return false
       end
       # fetch external object
@@ -73,7 +69,7 @@ module LatoSwpmanager
       # find project
       project = Project.find(params[:id])
       # check user is manager of project
-      if (!@superuser_superadmin && @superuser_admin && !(project.superuser_manager_id === @superuser.id))
+      if (!@superuser_superadmin && !(@project.superuser_manager_id === @superuser.id))
         redirect_to lato_core.root_path and return false
       end
       # exec update
@@ -92,7 +88,7 @@ module LatoSwpmanager
       # find project
       project = Project.find(params[:id])
       # check user is manager of project
-      if (!@superuser_superadmin && @superuser_admin && !(project.superuser_manager_id === @superuser.id))
+      if (!@superuser_superadmin && !(@project.superuser_manager_id === @superuser.id))
         redirect_to lato_core.root_path and return false
       end
       # destroy project
@@ -108,7 +104,7 @@ module LatoSwpmanager
       # find project
       @project = Project.find(params[:id])
       # check user is manager of project
-      if (!@superuser_superadmin && @superuser_admin && !(@project.superuser_manager_id === @superuser.id))
+      if (!@superuser_superadmin && !(@project.superuser_manager_id === @superuser.id))
         redirect_to lato_core.root_path and return false
       end
       # find datas
@@ -140,7 +136,7 @@ module LatoSwpmanager
       # find project
       @project = Project.find(params[:id])
       # check user is manager of project
-      if (!@superuser_superadmin && @superuser_admin && !(@project.superuser_manager_id === @superuser.id))
+      if (!@superuser_superadmin && !(@project.superuser_manager_id === @superuser.id))
         redirect_to lato_core.root_path and return false
       end
       # find datas

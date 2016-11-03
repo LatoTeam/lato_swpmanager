@@ -9,7 +9,7 @@ module LatoSwpmanager
       @task = Task.find(params[:id])
       @project = Project.find(@task.project_id)
       # check user is manager of project
-      if (!@superuser_superadmin && @superuser_admin && !(@project.superuser_manager_id === @superuser.id))
+      if (!@superuser_superadmin && !(@superuser_collaborator.projects.include? @project) && !(@project.superuser_manager_id === @superuser.id))
         redirect_to lato_core.root_path and return false
       end
       # prepare message task

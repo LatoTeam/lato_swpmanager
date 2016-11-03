@@ -6,18 +6,21 @@ module LatoSwpmanager
     end
 
     def index
+      # check user is admin
       redirect_to lato_core.root_path and return false unless @superuser_admin
 
       @collaborators = Collaborator.all.paginate(page: params[:page], per_page: 20).order('surname ASC')
     end
 
     def new
+      # check user is admin
       redirect_to lato_core.root_path and return false unless @superuser_admin
 
       @collaborator = Collaborator.new
     end
 
     def create
+      # check user is admin
       redirect_to lato_core.root_path and return false unless @superuser_admin
 
       collaborator = Collaborator.new(collaborator_params)
@@ -32,7 +35,7 @@ module LatoSwpmanager
     end
 
     def show
-      # set coorect collaborator profile
+      # set correct collaborator profile
       if @superuser_admin
         @collaborator = Collaborator.find(params[:id])
       else
@@ -57,6 +60,7 @@ module LatoSwpmanager
     end
 
     def edit
+      # check user is admin
       redirect_to lato_core.root_path and return false unless @superuser_admin
 
       @collaborator = Collaborator.find(params[:id])
@@ -64,6 +68,7 @@ module LatoSwpmanager
     end
 
     def update
+      # check user is admin
       redirect_to lato_core.root_path and return false unless @superuser_admin
 
       collaborator = Collaborator.find(params[:id])
@@ -78,6 +83,7 @@ module LatoSwpmanager
     end
 
     def destroy
+      # check user is admin
       redirect_to lato_core.root_path and return false unless @superuser_admin
 
       collaborator = Collaborator.find(params[:id])
