@@ -130,6 +130,28 @@ module LatoSwpmanager
       end
     end
 
+    def update_late_tasks
+      # check superuser is admin
+      redirect_to lato_core.root_path and return false unless @superuser_admin
+      # find project
+      project = Project.find(params[:id])
+      # check user is manager of project
+      if (!@superuser_superadmin && !(@project.superuser_manager_id === @superuser.id))
+        redirect_to lato_core.root_path and return false
+      end
+      # find tasks
+      today = Date.today
+      tasks = project.tasks.where('end_date < ?', today)
+      # update tasks
+      tasks.each do |task|
+        days_long = task.end_date - task.start_date
+        task.update(start_date: today, end_date: today + days_long)
+      end
+      # return result
+      flash[:success] = 'Operation done'
+      redirect_to lato_swpmanager.project_tasks_path(id: project.id)
+    end
+
     def stats
       # check user is admin
       redirect_to lato_core.root_path and return false unless @superuser_admin

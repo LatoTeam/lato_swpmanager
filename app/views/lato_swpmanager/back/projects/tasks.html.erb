@@ -69,6 +69,8 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 
     <%= render 'lato_swpmanager/back/projects/shared/timeline' %>
 
+    <%= link_to 'Update start date to all late tasks', lato_swpmanager.project_update_late_tasks_path, class: 'lato-button button-small', style: 'margin-top: 20px' %>
+
   <%=raw block.close %>
 </div>
 
