@@ -141,7 +141,7 @@ module LatoSwpmanager
       end
       # find tasks
       today = Date.today
-      tasks = project.tasks.where('end_date < ?', today)
+      tasks = project.tasks.where(status: ['wait', 'develop']).where('end_date < ?', today)
       # update tasks
       tasks.each do |task|
         days_long = task.end_date - task.start_date
