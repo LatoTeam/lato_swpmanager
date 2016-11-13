@@ -7,5 +7,14 @@
 # collaborator_superuser_permission: 1
 
 # Set default collaborator admin superuser permission
+# Note that superuser from 2 can see all menu voices about lato_swpmanager
 
 # collaborator_admin_superuser_permission: 2
+
+# Set client model name used to create relations between projects and clients
+
+# client_model_name: AppClient
+
+# Set the client function used to get the name of every client
+
+# client_get_name_function: get_name

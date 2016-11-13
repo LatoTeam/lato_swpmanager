@@ -6,7 +6,7 @@ status_options = [
   {name: 'Test', value: 'test'}
 ]
 
-if @superuser_admin
+if @superuser_is_superadmin || @task.project.superuser_manager_id === @superuser.id
   status_options.push({name: 'Completed', value: 'completed'})
 end
 
@@ -30,8 +30,6 @@ end
   </div>
 
   <input type="hidden" name="task[project_id]" value="<%= @project.id %>">
-
-  <input type="hidden" name="task_collaborator_update" value="1">
 
   <%= f.submit 'Update', class: 'lato-button button-small', style: 'float: right', :data => { disable_with: false } %>
 

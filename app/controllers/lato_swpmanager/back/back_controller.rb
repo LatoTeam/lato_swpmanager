@@ -15,16 +15,39 @@ module LatoSwpmanager
 
     private def set_superuser_data
       @superuser = core_getCurrentUser
-      @superuser_admin = core_controlPermission(swpmanager_getCollaboratorAdminSuperuserPermission)
-      @superuser_superadmin = core_controlPermission(6)
       @superuser_collaborator = Collaborator.find_by(superuser_id: @superuser.id)
+      @superuser_is_admin = core_controlPermission(swpmanager_getCollaboratorAdminSuperuserPermission)
+      @superuser_is_superadmin = core_controlPermission(6)
+    end
+
+    protected def check_user_is_admin
+      unless @superuser_is_admin
+        flash[:warning] = "You don't have permission to do this action"
+        redirect_to lato_core.root_path
+        return false
+      end
+    end
+
+    protected def check_user_is_superadmin
+      unless @superuser_is_superadmin
+        flash[:warning] = "You don't have permission to do this action"
+        redirect_to lato_core.root_path
+        return false
+      end
+    end
+
+    # This function tells if current superuser is a member of the project (project
+    # manager or team member).
+    protected def superuser_is_part_of_project? project
+      return true if @superuser_is_superadmin
+      return (@superuser_collaborator.projects.include? project) || (project.superuser_manager_id === @superuser.id)
     end
 
     # Home profile page
     def profile
       if @superuser_collaborator
         redirect_to lato_swpmanager.collaborator_path(@superuser_collaborator.id)
-      elsif @superuser_admin
+      elsif @superuser_is_admin
         redirect_to lato_swpmanager.projects_path
       else
         core_destroySession
@@ -32,7 +55,7 @@ module LatoSwpmanager
       end
     end
 
-    # Params functions ###
+    # Params functions
 
     protected def project_params
       params.require(:project).permit(:title, :deadline, :quote, :client_id,

@@ -1,15 +1,15 @@
 module LatoSwpmanager
   class Back::ProjectsController < Back::BackController
 
+    before_action :check_user_is_admin, except: [:show]
+
     before_action do
       view_setCurrentVoice('swpmanager_projects')
     end
 
     def index
-      # check user is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
       # find correct projects for user
-      if @superuser_superadmin
+      if @superuser_is_superadmin
         @projects = Project.all.paginate(page: params[:page], per_page: 20).order('title ASC')
       else
         @projects = Project.where(superuser_manager_id: @superuser.id).paginate(page: params[:page], per_page: 20).order('title ASC')
@@ -17,16 +17,12 @@ module LatoSwpmanager
     end
 
     def new
-      # check user is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
       # generate new project
       @project = Project.new
       fetch_external_objects
     end
 
     def create
-      # check user is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
       # generate project
       project = Project.new(project_params)
       # save superuser creator
@@ -41,22 +37,12 @@ module LatoSwpmanager
       end
     end
 
-    def show
-      @project = Project.find(params[:id])
-      @tasks = @project.tasks
-      # check user is collaborator of project
-      if (!@superuser_superadmin && !(@superuser_collaborator.projects.include? @project) && !(@project.superuser_manager_id === @superuser.id))
-        redirect_to lato_core.root_path and return false
-      end
-    end
-
     def edit
-      # check user is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
       # find project
       @project = Project.find(params[:id])
       # check user is manager of project
-      if (!@superuser_superadmin && !(@project.superuser_manager_id === @superuser.id))
+      if (!@superuser_is_superadmin && !(superuser_is_part_of_project? @project))
+        flash[:warning] = "You can't edit this project"
         redirect_to lato_core.root_path and return false
       end
       # fetch external object
@@ -64,12 +50,11 @@ module LatoSwpmanager
     end
 
     def update
-      # check user is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
       # find project
       project = Project.find(params[:id])
       # check user is manager of project
-      if (!@superuser_superadmin && !(project.superuser_manager_id === @superuser.id))
+      if (!@superuser_is_superadmin && !(superuser_is_part_of_project? project))
+        flash[:warning] = "You can't edit this project"
         redirect_to lato_core.root_path and return false
       end
       # exec update
@@ -83,28 +68,37 @@ module LatoSwpmanager
     end
 
     def destroy
-      # check superuser is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
       # find project
       project = Project.find(params[:id])
       # check user is manager of project
-      if (!@superuser_superadmin && !(project.superuser_manager_id === @superuser.id))
+      if (!@superuser_is_superadmin && !(superuser_is_part_of_project? project))
+        flash[:warning] = "You can't destroy this project"
         redirect_to lato_core.root_path and return false
       end
       # destroy project
       project.destroy
-
+      # return result
       flash[:success] = "Project deleted"
       redirect_to lato_swpmanager.projects_path
     end
 
+    def show
+      @project = Project.find(params[:id])
+      @tasks = @project.tasks
+      # check user is collaborator of project
+      if (!@superuser_is_superadmin && !(superuser_is_part_of_project? @project))
+        flash[:warning] = "You can't get information about this project"
+        redirect_to lato_core.root_path and return false
+      end
+    end
+
+    # This action show all tasks of project.
     def tasks
-      # check superuser is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
       # find project
       @project = Project.find(params[:id])
       # check user is manager of project
-      if (!@superuser_superadmin && !(@project.superuser_manager_id === @superuser.id))
+      if (!@superuser_is_superadmin && !(superuser_is_part_of_project? @project))
+        flash[:warning] = "You can't see tasks for this project"
         redirect_to lato_core.root_path and return false
       end
       # find datas
@@ -130,13 +124,31 @@ module LatoSwpmanager
       end
     end
 
+    # This action show stats informations of project.
+    def stats
+      # find project
+      @project = Project.find(params[:id])
+      # check user is manager of project
+      if (!@superuser_is_superadmin && !(superuser_is_part_of_project? @project))
+        flash[:warning] = "You can't see stats for this project"
+        redirect_to lato_core.root_path and return false
+      end
+      # find datas
+      @tasks = Task.where(project_id: @project.id).order('end_date ASC')
+      @wait_tasks = @tasks.where(status: 'wait')
+      @develop_tasks = @tasks.where(status: 'develop')
+      @test_tasks = @tasks.where(status: 'test')
+      @completed_tasks = @tasks.where(status: 'completed')
+      @collaborators = @project.collaborators
+    end
+
+    # This action update all old develop/wait tasks start date.
     def update_late_tasks
-      # check superuser is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
       # find project
       project = Project.find(params[:id])
       # check user is manager of project
-      if (!@superuser_superadmin && !(project.superuser_manager_id === @superuser.id))
+      if (!@superuser_is_superadmin && !(superuser_is_part_of_project? project))
+        flash[:warning] = "You can't do this action for this project"
         redirect_to lato_core.root_path and return false
       end
       # find tasks
@@ -150,24 +162,6 @@ module LatoSwpmanager
       # return result
       flash[:success] = 'Operation done'
       redirect_to lato_swpmanager.project_tasks_path(id: project.id)
-    end
-
-    def stats
-      # check user is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
-      # find project
-      @project = Project.find(params[:id])
-      # check user is manager of project
-      if (!@superuser_superadmin && !(@project.superuser_manager_id === @superuser.id))
-        redirect_to lato_core.root_path and return false
-      end
-      # find datas
-      @tasks = Task.where(project_id: @project.id).order('end_date ASC')
-      @wait_tasks = @tasks.where(status: 'wait')
-      @develop_tasks = @tasks.where(status: 'develop')
-      @test_tasks = @tasks.where(status: 'test')
-      @completed_tasks = @tasks.where(status: 'completed')
-      @collaborators = @project.collaborators
     end
 
     private def fetch_external_objects

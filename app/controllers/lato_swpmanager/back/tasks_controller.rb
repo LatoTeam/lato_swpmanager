@@ -1,6 +1,8 @@
 module LatoSwpmanager
   class Back::TasksController < Back::BackController
 
+    before_action :check_user_is_admin, except: [:show, :update]
+
     before_action do
       view_setCurrentVoice('swpmanager_projects')
     end
@@ -9,7 +11,8 @@ module LatoSwpmanager
       @task = Task.find(params[:id])
       @project = Project.find(@task.project_id)
       # check user is manager of project
-      if (!@superuser_superadmin && !(@superuser_collaborator.projects.include? @project) && !(@project.superuser_manager_id === @superuser.id))
+      if (!@superuser_superadmin && !(superuser_is_part_of_project? @project))
+        flash[:warning] = "You can't see this task"
         redirect_to lato_core.root_path and return false
       end
       # prepare message task
@@ -17,12 +20,11 @@ module LatoSwpmanager
     end
 
     def create
-      # check user is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
-      # create teask
+      # create task
       task = Task.new(task_params)
       # save superuser creator
       task.superuser_creator_id = @superuser.id
+
       # save task
       if task.save
         flash[:success] = "Task created"
@@ -34,10 +36,13 @@ module LatoSwpmanager
     end
 
     def edit
-      # check user is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
-      # edit task
+      # find edit task
       task = Task.find(params[:id])
+      # check superuser is part of the project
+      if (!@superuser_is_superadmin && !(superuser_is_part_of_project? task.project))
+        flash[:warning] = "You can't edit this task"
+        redirect_to lato_swpmanager.root_path and return false
+      end
       # redirecto to project tasks page
       redirect_to lato_swpmanager.project_tasks_path(id: task.project_id, task_id: task.id)
     end
@@ -45,25 +50,29 @@ module LatoSwpmanager
     def update
       # find task
       task = Task.find(params[:id])
+      # check superuser is part of the project
+      if (!(superuser_is_part_of_project? task.project))
+        flash[:warning] = "You can't edit this task"
+        redirect_to lato_swpmanager.root_path and return false
+      end
       # update task
       if task.update(task_params)
         flash[:success] = "Task updated"
       else
         flash[:danger] = "Task not updated"
       end
-      # exec correct redirect
-      if params[:task_collaborator_update]
-        redirect_to lato_swpmanager.task_path(task.id)
-      else
-        redirect_to lato_swpmanager.project_tasks_path(id: task.project_id)
-      end
+
+      redirect_to lato_swpmanager.project_tasks_path(id: task.project_id)
     end
 
     def destroy
-      # check user is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
       # find task
       task = Task.find(params[:id])
+      # check superuser is part of the project
+      if (!@superuser_is_superadmin && !(superuser_is_part_of_project? task.project))
+        flash[:warning] = "You can't edit this task"
+        redirect_to lato_swpmanager.root_path and return false
+      end
       # destroy task
       task.destroy
       # redirect to correct page

@@ -8,11 +8,13 @@
     <td><%= @project.status.capitalize %></td>
   </tr>
 
-  <% if @superuser_admin %>
-    <tr>
-      <th>Quote</th>
-      <td><%= @project.quote %></td>
-    </tr>
+  <% if @superuser_is_admin %>
+    <% if @project.quote %>
+      <tr>
+        <th>Quote</th>
+        <td><%= @project.quote %></td>
+      </tr>
+    <% end %>
     <% if @project.client_id %>
       <tr>
         <th>Client</th>
@@ -58,7 +60,7 @@
     </tr>
   <% end %>
 
-  <% if @superuser_admin && !@project.ftp_password.blank? %>
+  <% if @superuser_is_admin && !@project.ftp_password.blank? %>
     <tr>
       <th>FTP Password</th>
       <td><%= @project.ftp_password %></td>
@@ -79,7 +81,7 @@
     </tr>
   <% end %>
 
-  <% if @superuser_admin && !@project.ssh_password.blank? %>
+  <% if @superuser_is_admin && !@project.ssh_password.blank? %>
     <tr>
       <th>SSH Password</th>
       <td><%= @project.ssh_password %></td>

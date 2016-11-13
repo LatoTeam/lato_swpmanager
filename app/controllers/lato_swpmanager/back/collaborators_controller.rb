@@ -1,28 +1,49 @@
 module LatoSwpmanager
   class Back::CollaboratorsController < Back::BackController
 
+    before_action :check_user_is_admin, except: [:show]
+    before_action :check_user_is_superadmin, only: [:destroy]
+
     before_action do
       view_setCurrentVoice('swpmanager_collaborators')
     end
 
-    def index
-      # check user is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
+    def show
+      # set correct collaborator profile (not admin user can only see its profile)
+      if @superuser_is_admin
+        @collaborator = Collaborator.find(params[:id])
+      else
+        @collaborator = @superuser_collaborator
+      end
 
+      # active correct menu voice if user see its profile
+      if @superuser_collaborator && @superuser_collaborator === @collaborator
+        view_setCurrentVoice('swpmanager_profile')
+      end
+
+      # prepare data about collaborator projects and profile
+      @projects = @collaborator.projects.where(status: 'develop').order('title ASC')
+      @tasks = @collaborator.tasks
+
+      # prepare data about collaborator timeline
+      if params[:init_date]
+        @init_date = params[:init_date].to_date
+        @end_date = @init_date + 6
+      else
+        @init_date = Date.yesterday
+        @end_date = @init_date + 6
+      end
+    end
+
+    def index
       @collaborators = Collaborator.all.paginate(page: params[:page], per_page: 20).order('surname ASC')
     end
 
     def new
-      # check user is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
-
       @collaborator = Collaborator.new
     end
 
     def create
-      # check user is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
-
       collaborator = Collaborator.new(collaborator_params)
 
       if collaborator.save
@@ -34,43 +55,13 @@ module LatoSwpmanager
       redirect_to lato_swpmanager.collaborators_path
     end
 
-    def show
-      # set correct collaborator profile
-      if @superuser_admin
-        @collaborator = Collaborator.find(params[:id])
-      else
-        @collaborator = @superuser_collaborator
-      end
-
-      # active correct menu voice if user see its profile
-      if @superuser_collaborator && @superuser_collaborator === @collaborator
-        view_setCurrentVoice('swpmanager_profile')
-      end
-
-      @projects = @collaborator.projects.where(status: 'develop').order('title ASC')
-      @tasks = @collaborator.tasks
-
-      if params[:init_date]
-        @init_date = params[:init_date].to_date
-        @end_date = @init_date + 6
-      else
-        @init_date = Date.yesterday
-        @end_date = @init_date + 6
-      end
-    end
-
     def edit
-      # check user is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
-
       @collaborator = Collaborator.find(params[:id])
+      # check superuser exist for collaborator
       check_superuser_exist(@collaborator)
     end
 
     def update
-      # check user is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
-
       collaborator = Collaborator.find(params[:id])
 
       if collaborator.update(collaborator_params)
@@ -83,9 +74,6 @@ module LatoSwpmanager
     end
 
     def destroy
-      # check user is admin
-      redirect_to lato_core.root_path and return false unless @superuser_admin
-
       collaborator = Collaborator.find(params[:id])
       collaborator.destroy
 
@@ -93,6 +81,8 @@ module LatoSwpmanager
       redirect_to lato_swpmanager.collaborators_path
     end
 
+    # This function check superuser exist for collaborator and destroy it if
+    # not exist.
     private def check_superuser_exist(collaborator)
       if collaborator.superuser_id
         superuser = LatoCore::Superuser.find_by(id: collaborator.superuser_id)

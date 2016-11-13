@@ -6,7 +6,7 @@ back_button = view(:component, :button).new(title: 'All collaborators',
 url: lato_swpmanager.collaborators_path, size: :small)
 
 actionbar_widgets = []
-if @superuser_admin
+if @superuser_is_admin
   actionbar_widgets.push({component: back_button, align: :right})
 end
 
