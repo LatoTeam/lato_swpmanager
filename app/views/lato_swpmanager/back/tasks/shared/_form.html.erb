@@ -9,7 +9,12 @@ send = 'Update' if method === :put
   <div class="form-group">
 
     <%= raw view(:input, :text).new(value: @task.title,
-            name: 'task[title]', label: 'Title', width: 'large', required: true) %>
+            name: 'task[title]', label: 'Title', width: 'half', required: true) %>
+
+    <%= raw view(:input, :select).new(value: @task.task_category_id,
+            name: 'task[task_category_id]', label: 'Category',
+            options: view(:input, :select).generate_options_from_activerecords(@task_categories, :id, :title),
+            option_blank: false, width: 'half', required: false, multiple: false) %>
 
   </div>
 
@@ -38,10 +43,12 @@ send = 'Update' if method === :put
   <div class="form-group">
 
     <%= raw view(:input, :date).new(value: @task.string_start_date,
-            name: 'task[start_date]', label: 'Start date', width: 'half', required: true) %>
+            name: 'task[start_date]', label: 'Start date', width: 'half', required: true,
+            custom_class: 'lato-swpmanager-task-start-date-input') %>
 
     <%= raw view(:input, :date).new(value: @task.string_end_date,
-            name: 'task[end_date]', label: 'End date', width: 'half', required: true) %>
+            name: 'task[end_date]', label: 'End date', width: 'half', required: true,
+            custom_class: 'lato-swpmanager-task-end-date-input') %>
 
   </div>
 

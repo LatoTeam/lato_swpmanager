@@ -7,6 +7,8 @@ module LatoSwpmanager
 
     has_many :tasks, dependent: :destroy
 
+    has_many :task_categories, dependent: :destroy
+
     has_many :project_collaborators, dependent: :destroy
     has_many :collaborators, through: :project_collaborators
 

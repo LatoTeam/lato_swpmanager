@@ -1,0 +1,44 @@
+<%
+
+block = view(:layout, :block).new
+
+back_button = view(:component, :button).new(title: 'All project tasks',
+url: lato_swpmanager.project_tasks_path(id: @project.id), size: :small)
+
+project_button = view(:component, :button).new(title: 'Project info',
+url: lato_swpmanager.project_path(id: @project.id), size: :small)
+
+actionbar_widgets = [{component: project_button, align: :right}]
+if @superuser_is_admin
+  actionbar_widgets.push({component: back_button, align: :right})
+end
+
+actionbar = view(:layout, :actionbar).new(title: 'Task categories',
+widgets: actionbar_widgets)
+
+index = view(:layout, :index).new(head: ['Title'], elements: @task_categories, attributes: [:title],
+link: lato_swpmanager.task_categories_path, show_link: false, edit_link: false, delete_link: true)
+
+
+%>
+
+
+<%=raw actionbar %>
+
+<div class="content-row">
+  <%=raw block.open(width: 'small-12 medium-7') %>
+
+    <h6 class="latoswpmanager-small-title">All categories</h6>
+
+    <%=raw index %>
+
+  <%=raw block.close %>
+
+  <%=raw block.open(width: 'small-12 medium-5') %>
+
+    <h6 class="latoswpmanager-small-title">New category</h6>
+
+    <%= render 'lato_swpmanager/back/task_categories/shared/form', method: :post %>
+
+  <%=raw block.close %>
+</div>

@@ -9,6 +9,7 @@ LatoSwpmanager::Engine.routes.draw do
   resources :collaborators, module: 'back'
   resources :tasks, except: [:new, :index], module: 'back'
   resources :task_messages, only: [:create, :destroy], module: 'back'
+  resources :task_categories, only: [:index, :create, :destroy], module: 'back'
 
   # Project extra
   get 'project_extra/tasks/:id', to: 'back/projects#tasks', as: 'project_tasks'

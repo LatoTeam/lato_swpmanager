@@ -1,0 +1,16 @@
+<% method = :post if !defined? method %>
+
+<%= form_for([@task_category], html: {class: "lato-form", multipart: true}, method: method) do |f| %>
+
+  <div class="form-group">
+
+    <%= raw view(:input, :text).new(value: @task_category.title,
+            name: 'task_category[title]', label: 'Title', width: 'large', required: true) %>
+
+  </div>
+
+  <input type="hidden" name="task_category[project_id]" value="<%= @project.id %>">
+
+  <%= f.submit 'Create', class: 'lato-button button-small', :data => { disable_with: false } %>
+
+<% end %>

@@ -5,6 +5,8 @@ module LatoSwpmanager
 
     belongs_to :project
 
+    belongs_to :task_category
+
     has_many :task_messages, dependent: :destroy
 
     before_update do

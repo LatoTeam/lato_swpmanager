@@ -33,6 +33,18 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 
 <%=raw tasks_actionbar %>
 
+<% if @tasks.empty? %>
+
+<div class="latoswpmanager-guide">
+  There are not tasks for this project.
+  Start to create a <b>new task category</b> or a <b>new task</b>.
+  <br><br>
+  <%= link_to 'Create new task category', lato_swpmanager.task_categories_path(project_id: @project.id), class: 'lato-button button-small button-green' %>
+  <a class="lato-button button-small button-yellow" id="latoswpmanager-project-tasks-new-button">New task</a>
+</div>
+
+<% end %>
+
 <div class="latoswpmanager-project-tasks-form <%= (@task.id ? 'active' : nil) %>">
   <div class="content-row">
     <%=raw block.open %>
@@ -58,6 +70,7 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
     <%= render 'lato_swpmanager/back/projects/shared/tasks_info' %>
 
     <a class="lato-button button-small button-yellow" id="latoswpmanager-project-tasks-new-button" style="float: right">New task</a>
+    <%= link_to 'Task categories', lato_swpmanager.task_categories_path(project_id: @project.id), class: 'lato-button button-small button-green' %>
 
   <%=raw block.close %>
 </div>

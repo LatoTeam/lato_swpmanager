@@ -16,7 +16,8 @@ module LatoSwpmanager
         redirect_to lato_core.root_path and return false
       end
       # check user is the collaborator of task (if is not the project manager)
-      if (@superuser.id != @project.superuser_manager_id && @superuser_collaborator.id != @task.collaborator_id)
+      if (!@superuser_superadmin && @superuser.id != @project.superuser_manager_id &&
+          @superuser_collaborator && @superuser_collaborator.id != @task.collaborator_id)
         flash[:warning] = "You can't see this task"
         redirect_to lato_core.root_path and return false
       end

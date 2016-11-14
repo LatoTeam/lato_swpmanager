@@ -114,6 +114,7 @@ module LatoSwpmanager
       else
         @task = Task.new
       end
+      @task_categories = TaskCategory.where(project_id: @project.id)
       # prepare datas for timeline
       if params[:init_date]
         @init_date = params[:init_date].to_date

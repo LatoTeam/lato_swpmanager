@@ -12,6 +12,12 @@ $yellow-sea     : darken(#ffae03, 5%);
 // STYLE FOR MORE PAGES
 // /////////////////////////////////////////////////////////////////////////////
 
+// guide to user
+.latoswpmanager-guide {
+  background-color: rgba(#fff, 0.5);
+  padding: 15px;
+  border-left: solid 2px $rhino;
+}
 
 // single title
 .latoswpmanager-small-title {

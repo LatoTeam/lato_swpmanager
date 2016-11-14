@@ -17,7 +17,7 @@ module LatoSwpmanager
       @superuser = core_getCurrentUser
       @superuser_collaborator = Collaborator.find_by(superuser_id: @superuser.id)
       @superuser_is_admin = core_controlPermission(swpmanager_getCollaboratorAdminSuperuserPermission)
-      @superuser_is_superadmin = core_controlPermission(6)
+      @superuser_is_superadmin = core_controlPermission(swpmanager_getCollaboratorAdminSuperuserPermission + 1)
     end
 
     protected def check_user_is_admin
@@ -75,11 +75,16 @@ module LatoSwpmanager
 
     protected def task_params
       params.require(:task).permit(:title, :description, :collaborator_id, :project_id,
-      :start_date, :end_date, :budget, :expected_work_time, :real_work_time, :status)
+      :start_date, :end_date, :budget, :expected_work_time, :real_work_time, :status,
+      :task_category_id)
     end
 
     protected def task_message_params
       params.require(:task_message).permit(:message, :task_id)
+    end
+
+    protected def task_category_params
+      params.require(:task_category).permit(:title, :project_id)
     end
 
   end
