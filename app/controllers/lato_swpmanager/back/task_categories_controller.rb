@@ -11,7 +11,7 @@ module LatoSwpmanager
       # find project
       @project = Project.find(params[:project_id])
       # check user is part of project
-      if (!@superuser_superadmin && !(superuser_is_part_of_project? @project))
+      if (!@superuser_is_superadmin && !(superuser_is_part_of_project? @project))
         flash[:warning] = "You can't see this task"
         redirect_to lato_core.root_path and return false
       end

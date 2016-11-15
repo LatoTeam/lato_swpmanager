@@ -11,12 +11,12 @@ module LatoSwpmanager
       @task = Task.find(params[:id])
       @project = Project.find(@task.project_id)
       # check user is part of project
-      if (!@superuser_superadmin && !(superuser_is_part_of_project? @project))
+      if (!@superuser_is_superadmin && !(superuser_is_part_of_project? @project))
         flash[:warning] = "You can't see this task"
         redirect_to lato_core.root_path and return false
       end
       # check user is the collaborator of task (if is not the project manager)
-      if (!@superuser_superadmin && @superuser.id != @project.superuser_manager_id &&
+      if (!@superuser_is_superadmin && @superuser.id != @project.superuser_manager_id &&
           @superuser_collaborator && @superuser_collaborator.id != @task.collaborator_id)
         flash[:warning] = "You can't see this task"
         redirect_to lato_core.root_path and return false
