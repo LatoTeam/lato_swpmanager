@@ -12,11 +12,6 @@ module LatoSwpmanager
         @collaborator = @superuser_collaborator
       end
 
-      # active correct menu voice if user see its profile
-      if @superuser_collaborator && @superuser_collaborator === @collaborator
-        view_setCurrentVoice('swpmanager_profile')
-      end
-
       # prepare data about collaborator projects and profile
       @projects = @collaborator.projects.where(status: 'develop').order('title ASC')
       @tasks = @collaborator.tasks
