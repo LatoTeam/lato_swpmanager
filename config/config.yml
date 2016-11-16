@@ -1,23 +1,11 @@
 # Menu settings
 menu:
-  swpmanager_profile:
-    name: My Profile
-    url: "/lato/swpmanager/profile"
-    icon: user
-    position: 9
-    permission: 0
-  swpmanager_projects:
-    name: Projects
-    url: "/lato/swpmanager/projects"
+  swpmanager:
+    name: SW Projects
+    url: "/lato/swpmanager"
     icon: web
     position: 79
-    permission: 2
-  swpmanager_collaborators:
-    name: Collaborators
-    url: "/lato/swpmanager/collaborators"
-    icon: users
-    position: 89
-    permission: 2
+    permission: 0
 
 # Custom assets settings
 assets:

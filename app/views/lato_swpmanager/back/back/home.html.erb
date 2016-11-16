@@ -1,0 +1,37 @@
+<%
+
+block = view(:layout, :block).new
+
+projects_button = view(:component, :button).new(title: 'Projects',
+url: lato_swpmanager.projects_path, size: :small)
+
+collaborators_button = view(:component, :button).new(title: 'Collaborators',
+url: lato_swpmanager.collaborators_path, size: :small)
+
+actionbar_widgets = [
+  {component: projects_button, align: :right},
+  {component: collaborators_button, align: :right}
+]
+
+if @superuser_collaborator
+  profile_button = view(:component, :button).new(title: 'Profile',
+  url: lato_swpmanager.collaborator_path(id: @superuser_collaborator.id), size: :small, color: :yellow)
+
+  actionbar_widgets.push({component: profile_button, align: :right})
+end
+
+actionbar = view(:layout, :actionbar).new(title: "Software Projects Manager", widgets: actionbar_widgets)
+
+%>
+
+<%=raw actionbar %>
+
+<div class="content-row" id="timeline">
+  <%=raw block.open %>
+
+    <h6 class="latoswpmanager-small-title">Your projects timeline</h6>
+
+    <%= render 'lato_swpmanager/back/projects/shared/projects_timeline' %>
+
+  <%=raw block.close %>
+</div>

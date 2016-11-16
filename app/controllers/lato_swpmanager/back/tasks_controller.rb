@@ -3,10 +3,6 @@ module LatoSwpmanager
 
     before_action :check_user_is_admin, except: [:show, :update]
 
-    before_action do
-      view_setCurrentVoice('swpmanager_projects')
-    end
-
     def show
       @task = Task.find(params[:id])
       @project = Project.find(@task.project_id)

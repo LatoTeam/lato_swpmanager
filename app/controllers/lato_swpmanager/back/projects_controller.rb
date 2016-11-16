@@ -3,10 +3,6 @@ module LatoSwpmanager
 
     before_action :check_user_is_admin, except: [:show]
 
-    before_action do
-      view_setCurrentVoice('swpmanager_projects')
-    end
-
     def index
       # find correct projects for user
       if @superuser_is_superadmin

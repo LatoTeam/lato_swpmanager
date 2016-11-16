@@ -1,10 +1,6 @@
 module LatoSwpmanager
   class Back::TaskMessagesController < Back::BackController
 
-    before_action do
-      view_setCurrentVoice('swpmanager_projects')
-    end
-
     def create
       task_message = TaskMessage.new(task_message_params)
       # save superuser creator

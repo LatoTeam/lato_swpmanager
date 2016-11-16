@@ -1,7 +1,6 @@
 LatoSwpmanager::Engine.routes.draw do
 
-  # Profile
-  get 'profile', to: 'back/back#profile', as: 'profile'
+  root 'back/back#home'
 
   # Resources
   resources :projects, module: 'back'

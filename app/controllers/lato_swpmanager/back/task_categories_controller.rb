@@ -3,10 +3,6 @@ module LatoSwpmanager
 
     before_action :check_user_is_admin
 
-    before_action do
-      view_setCurrentVoice('swpmanager_projects')
-    end
-
     def index
       # find project
       @project = Project.find(params[:project_id])

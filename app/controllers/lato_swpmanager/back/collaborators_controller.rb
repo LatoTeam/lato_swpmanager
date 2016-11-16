@@ -4,10 +4,6 @@ module LatoSwpmanager
     before_action :check_user_is_admin, except: [:show]
     before_action :check_user_is_superadmin, only: [:destroy]
 
-    before_action do
-      view_setCurrentVoice('swpmanager_collaborators')
-    end
-
     def show
       # set correct collaborator profile (not admin user can only see its profile)
       if @superuser_is_admin

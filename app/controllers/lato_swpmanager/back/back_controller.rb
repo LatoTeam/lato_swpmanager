@@ -13,6 +13,10 @@ module LatoSwpmanager
 
     before_action :set_superuser_data
 
+    before_action do
+      view_setCurrentVoice('swpmanager')
+    end
+
     private def set_superuser_data
       @superuser = core_getCurrentUser
       @superuser_collaborator = Collaborator.find_by(superuser_id: @superuser.id)
@@ -20,6 +24,7 @@ module LatoSwpmanager
       @superuser_is_superadmin = core_controlPermission(swpmanager_getCollaboratorAdminSuperuserPermission + 1)
     end
 
+    # This function check user is admin or redirect it to root path.
     protected def check_user_is_admin
       unless @superuser_is_admin
         flash[:warning] = "You don't have permission to do this action"
@@ -28,6 +33,7 @@ module LatoSwpmanager
       end
     end
 
+    # This function check user is super admin or redirect it to root path.
     protected def check_user_is_superadmin
       unless @superuser_is_superadmin
         flash[:warning] = "You don't have permission to do this action"
@@ -43,15 +49,25 @@ module LatoSwpmanager
       return (@superuser_collaborator.projects.include? project) || (project.superuser_manager_id === @superuser.id)
     end
 
-    # Home profile page
-    def profile
-      if @superuser_collaborator
+    # This function render the home page.
+    def home
+      if @superuser_collaborator && !@superuser_is_admin
         redirect_to lato_swpmanager.collaborator_path(@superuser_collaborator.id)
-      elsif @superuser_is_admin
-        redirect_to lato_swpmanager.projects_path
       else
-        core_destroySession
-        redirect_to lato_core.root_path
+        # prepare datas for timeline
+        if params[:init_date]
+          @init_date = params[:init_date].to_date
+          @end_date = @init_date + 6
+        else
+          @init_date = Date.yesterday
+          @end_date = @init_date + 6
+        end
+        # prepare projects
+        if @superuser_is_superadmin
+          @projects = Project.where('deadline >= ? ', @init_date)
+        else
+          @projects = Project.where(superuser_manager_id: @superuser.id).where('deadline >= ? ', @init_date)
+        end
       end
     end
 
