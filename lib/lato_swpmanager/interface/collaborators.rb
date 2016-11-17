@@ -1,5 +1,5 @@
 module LatoSwpmanager
-  # This is an example module.
+  # This module contains some functions used to work with collaborators.
   module Interface::Collaborators
 
       # This function read the configuration file and return the default

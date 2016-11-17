@@ -80,10 +80,6 @@ module LatoSwpmanager
       :main_domain, :hosting_provider, :superuser_manager_id, collaborators_id: [])
     end
 
-    protected def client_params
-      params.require(:client).permit(:name, :email, :phone, :website)
-    end
-
     protected def collaborator_params
       params.require(:collaborator).permit(:name, :surname, :email, :phone, :superuser,
       :superuser_admin, :work_time_per_day, :work_days_per_week)
