@@ -70,17 +70,10 @@
 </style>
 
 <script>
-  // window.print();
+  window.print();
 </script>
 
 <div class="print-content">
-
-  <!--<h1 class="project-title">Project: <%= @project.title %></h1>
-  <h4 class="project-manager">Project manager: <%= @project.string_superuser_manager_name %></h4>
-
-  <% if @status %>
-    <h4 class="project-manager">Tasks status: <%= @status.to_sentence %></h4>
-  <% end %>-->
 
   <table class="table header-table">
     <tr>
@@ -142,9 +135,9 @@
     <% end %>
     <tr>
       <th></th>
-      <th class="text-align-center">Total time: <%= @tasks.sum(:real_work_time) %>h</th>
-      <% if @show_expected_time %><th>Total expected time: <%= @tasks.sum(:expected_work_time) %>h</th><% end %>
-      <th class="text-align-center">Total tasks: <%= @tasks.length %></th>
+      <th class="text-align-center">Total time <br> <%= @tasks.sum(:real_work_time) %>h</th>
+      <% if @show_expected_time %><th>Total expected time <br> <%= @tasks.sum(:expected_work_time) %>h</th><% end %>
+      <th class="text-align-center">Total tasks <br> <%= @tasks.length %></th>
     </tr>
   </table>
 
