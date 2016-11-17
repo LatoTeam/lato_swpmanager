@@ -14,7 +14,7 @@
               <span class="timeline-task-time"><%= task.real_work_time ? task.real_work_time : task.expected_work_time %></span>
             <% end %>
             <div class="timeline-task-title"><%= task.title %></div>
-            <div class="timeline-task-info"><%= task.collaborator ? task.collaborator.string_complete_name : 'Unknown' %></div>
+            <div class="timeline-task-info"><% if task.string_task_category_title %><b><%= task.string_task_category_title %></b> - <% end %><%= task.collaborator ? task.collaborator.string_complete_name : 'Unknown' %></div>
           </a>
         <% end %>
       </div>

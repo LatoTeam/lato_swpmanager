@@ -19,7 +19,22 @@ module LatoSwpmanager
       return model_name
     end
 
-    # TODO: Continue
+    # This function read the configuration file and return the default
+    # clients function used to get the name of client.
+    def swpmanager_getClientGetNameFunction
+      return SWPMANAGER_CLIENTGETNAMEFUNCTION if defined? SWPMANAGER_CLIENTGETNAMEFUNCTION
+      model_function_name = false
+      if File.exist? "#{Rails.root}/config/lato/swpmanager.yml"
+        config = YAML.load(
+          File.read(File.expand_path("#{Rails.root}/config/lato/swpmanager.yml", __FILE__))
+        )
+        if config && config['client_get_name_function']
+          model_function_name = config['client_get_name_function']
+        end
+      end
+      # return result
+      return model_function_name
+    end
 
   end
 end

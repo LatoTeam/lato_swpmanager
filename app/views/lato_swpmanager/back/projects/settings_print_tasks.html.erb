@@ -1,0 +1,59 @@
+<%
+
+block = view(:layout, :block).new
+
+back_button = view(:component, :button).new(title: 'Go to project',
+url: lato_swpmanager.project_path(@project.id), size: :small)
+
+actionbar = view(:layout, :actionbar).new(title: 'Print project settings',
+widgets: [{component: back_button, align: :right}])
+
+%>
+
+
+<%=raw actionbar %>
+
+<div class="content-row">
+
+  <%=raw block.open(width: 'large') %>
+
+    <h6 class="latoswpmanager-small-title"><%= @project.title %></h6>
+
+    <%= form_tag lato_swpmanager.project_print_tasks_path(@project.id), method: :post, class: 'lato-form' do %>
+
+      <div class="form-group">
+
+        <%= raw view(:input, :select).new(value: [],
+              name: 'collaborators[]', label: 'Collaborators',
+              options: view(:input, :select).generate_options_from_activerecords(@collaborators, :id, :string_complete_name),
+              option_blank: false, width: 'half', required: false, multiple: true) %>
+
+        <%= raw view(:input, :select).new(value: [],
+              name: 'status[]', label: 'Tasks status',
+              options: [
+                {name: 'Wait', value: 'wait'},
+                {name: 'Develop', value: 'develop'},
+                {name: 'Test', value: 'test'},
+                {name: 'Completed', value: 'completed'}
+              ],
+              option_blank: false, width: 'half', required: false, multiple: true) %>
+
+      </div>
+
+      <div class="form-group">
+
+        <%= raw view(:input, :date).new(value: '',
+                name: 'start_date', label: 'Tasks from date', width: 'half', required: false) %>
+
+        <%= raw view(:input, :date).new(value: '',
+                name: 'end_date', label: 'Tasks to date', width: 'half', required: false) %>
+
+      </div>
+
+      <%= submit_tag 'Print', class: "lato-button" %>
+
+    <% end %>
+
+  <%=raw block.close %>
+
+</div>

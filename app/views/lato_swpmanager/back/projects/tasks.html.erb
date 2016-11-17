@@ -5,8 +5,8 @@ block = view(:layout, :block).new
 project_button = view(:component, :button).new(title: 'Go to project',
 url: lato_swpmanager.project_path(@project.id), size: :small)
 
-print_button = view(:component, :button).new(title: 'Print completed tasks',
-url: lato_swpmanager.project_print_tasks_path(@project.id), size: :small)
+print_button = view(:component, :button).new(title: 'Print tasks',
+url: lato_swpmanager.project_settings_print_tasks_path(@project.id), size: :small)
 
 tasks_actionbar = view(:layout, :actionbar).new(title: "Tasks", widgets: [
     {component: project_button, align: :right},
@@ -17,20 +17,20 @@ index = view(:layout, :index).new(head: ['End date', 'Title'],
 elements: @deadline_tasks, attributes: [:string_end_date, :title],
 link: lato_swpmanager.tasks_path, show_link: true, edit_link: false, delete_link: false)
 
-wait_index = view(:layout, :index).new(head: ['Title'],
-elements: @wait_tasks, attributes: [:title],
+wait_index = view(:layout, :index).new(head: ['Category', 'Title'],
+elements: @wait_tasks, attributes: [:string_task_category_title, :title],
 link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link: true)
 
 develop_index = view(:layout, :index).new(head: ['Title', 'Messages'],
 elements: @develop_tasks, attributes: [:title, :get_messages_number],
 link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link: true)
 
-test_index = view(:layout, :index).new(head: ['Title'],
-elements: @test_tasks, attributes: [:title],
+test_index = view(:layout, :index).new(head: ['Category', 'Title'],
+elements: @test_tasks, attributes: [:string_task_category_title, :title],
 link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link: true)
 
-completed_index = view(:layout, :index).new(head: ['Title'],
-elements: @completed_tasks, attributes: [:title],
+completed_index = view(:layout, :index).new(head: ['Category', 'Title'],
+elements: @completed_tasks, attributes: [:string_task_category_title, :title],
 link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link: true)
 
 %>

@@ -2,3 +2,5 @@ include LatoSwpmanager::Interface
 
 SWPMANAGER_COLLABORATORSUPERUSERPERMISSION = swpmanager_getCollaboratorSuperuserPermission
 SWPMANAGER_COLLABORATORADMINSUPERUSERPERMISSION = swpmanager_getCollaboratorAdminSuperuserPermission
+SWPMANAGER_CLIENTMODELNAME = swpmanager_getClientModelName
+SWPMANAGER_CLIENTGETNAMEFUNCTION = swpmanager_getClientGetNameFunction

@@ -20,6 +20,10 @@
     text-align: left;
   }
 
+  .table, tr, td, th {
+    border: 1px solid black;
+  }
+
   .table tr {
 
   }
@@ -36,13 +40,17 @@
 </style>
 
 <script>
-  window.print();
+  // window.print();
 </script>
 
 <div class="print-content">
 
-  <!--<h1 class="project-title">Project: <%= @project.title %></h1>
-  <h4 class="project-manager">Project manager: <%= @project.string_superuser_manager_name %></h4>-->
+  <h1 class="project-title">Project: <%= @project.title %></h1>
+  <h4 class="project-manager">Project manager: <%= @project.string_superuser_manager_name %></h4>
+
+  <% if @status %>
+    <h4 class="project-manager">Tasks status: <%= @status.to_sentence %></h4>
+  <% end %>
 
   <table class="table tasks-table">
     <tr>

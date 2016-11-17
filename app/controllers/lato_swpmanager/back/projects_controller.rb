@@ -143,6 +143,20 @@ module LatoSwpmanager
       redirect_to lato_swpmanager.project_tasks_path(id: project.id)
     end
 
+    # This function render a request about settings for the print tasks
+    # configurations.
+    def settings_print_tasks
+      # find project
+      @project = Project.find(params[:id])
+      # check user is manager of project
+      if (!@superuser_is_superadmin && !(superuser_is_part_of_project? @project))
+        flash[:warning] = "You can't see stats for this project"
+        redirect_to lato_core.root_path and return false
+      end
+      # get all collaborators
+      @collaborators = @project.collaborators
+    end
+
     # This function render a print version of tasks for a single project.
     def print_tasks
       # find project
@@ -152,7 +166,19 @@ module LatoSwpmanager
         flash[:warning] = "You can't see stats for this project"
         redirect_to lato_core.root_path and return false
       end
-      @tasks = @project.tasks.where(status: 'completed')
+      # datas
+      @status = params[:status]
+      @collaborators = params[:collaborators]
+      @start_date = params[:start_date]
+      @end_date = params[:end_date]
+      # find tasks
+      @tasks = @project.tasks.where(status: @status, collaborator_id: @collaborators)
+      unless @start_date.blank?
+        @tasks = @tasks.where('start_date >= ?', @start_date.to_date)
+      end
+      unless @end_date.blank?
+        @tasks = @tasks.where('end_date <= ?', @end_date.to_date)
+      end
       # disable layout
       render layout: false
     end
