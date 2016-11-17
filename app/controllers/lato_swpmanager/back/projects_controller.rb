@@ -167,11 +167,11 @@ module LatoSwpmanager
         redirect_to lato_core.root_path and return false
       end
       # datas
-      @status = params[:status] ? params[:status] : ['wait', 'develop', 'test', 'completed']
-      @collaborators = params[:collaborators] ? params[:collaborators] : @project.collaborators.ids
+      @status = (params[:status] ? params[:status] : ['wait', 'develop', 'test', 'completed'])
+      @collaborators = (params[:collaborators] ? params[:collaborators] : @project.collaborators.ids)
       @start_date = params[:start_date]
       @end_date = params[:end_date]
-      @show_expected_time = params[:show_expected_time] === '1'
+      @show_expected_time = (params[:show_expected_time] === '1')
       # find tasks
       @tasks = @project.tasks.where(status: @status, collaborator_id: @collaborators)
       unless @start_date.blank?
