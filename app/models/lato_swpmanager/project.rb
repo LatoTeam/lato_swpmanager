@@ -43,7 +43,7 @@ module LatoSwpmanager
       self.collaborators.each do |collaborator|
         names.push collaborator.string_complete_name
       end
-      return names.join(", ")
+      return names.to_sentence
     end
 
     # This function return the list of ids of collaborators of the project.

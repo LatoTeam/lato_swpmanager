@@ -171,6 +171,7 @@ module LatoSwpmanager
       @collaborators = params[:collaborators]
       @start_date = params[:start_date]
       @end_date = params[:end_date]
+      @show_expected_time = params[:show_expected_time]
       # find tasks
       @tasks = @project.tasks.where(status: @status, collaborator_id: @collaborators)
       unless @start_date.blank?
