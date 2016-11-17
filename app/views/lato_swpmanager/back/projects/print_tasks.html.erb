@@ -1,0 +1,67 @@
+<style>
+  @page {
+    size: A4;
+  }
+
+  .print-content {
+    font-family: sans-serif;
+  }
+
+  .project-title {
+
+  }
+
+  .project-manager {
+
+  }
+
+  .table {
+    width: 100%;
+    text-align: left;
+  }
+
+  .table tr {
+
+  }
+
+  .table th {
+    padding: 10px;
+    width: 33%;
+  }
+
+  .table td {
+    padding: 10px;
+    width: 33%;
+  }
+</style>
+
+<script>
+  window.print();
+</script>
+
+<div class="print-content">
+
+  <!--<h1 class="project-title">Project: <%= @project.title %></h1>
+  <h4 class="project-manager">Project manager: <%= @project.string_superuser_manager_name %></h4>-->
+
+  <table class="table tasks-table">
+    <tr>
+      <th>TASKS</th>
+      <th>TIME</th>
+      <th>COLLABORATOR</th>
+    </tr>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.real_work_time %></td>
+        <td><%= task.string_collaborator_complete_name %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <th>TOTAL TASKS: <%= @tasks.length %></th>
+      <th>TOTAL TIME: <%= @tasks.sum(:real_work_time) %></th>
+      <th></th>
+    </tr>
+  </table>
+
+</div>

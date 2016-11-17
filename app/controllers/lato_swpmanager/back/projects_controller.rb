@@ -121,24 +121,6 @@ module LatoSwpmanager
       end
     end
 
-    # This action show stats informations of project.
-    def stats
-      # find project
-      @project = Project.find(params[:id])
-      # check user is manager of project
-      if (!@superuser_is_superadmin && !(superuser_is_part_of_project? @project))
-        flash[:warning] = "You can't see stats for this project"
-        redirect_to lato_core.root_path and return false
-      end
-      # find datas
-      @tasks = Task.where(project_id: @project.id).order('end_date ASC')
-      @wait_tasks = @tasks.where(status: 'wait')
-      @develop_tasks = @tasks.where(status: 'develop')
-      @test_tasks = @tasks.where(status: 'test')
-      @completed_tasks = @tasks.where(status: 'completed')
-      @collaborators = @project.collaborators
-    end
-
     # This action update all old develop/wait tasks start date.
     def update_late_tasks
       # find project
@@ -159,6 +141,38 @@ module LatoSwpmanager
       # return result
       flash[:success] = 'Operation done'
       redirect_to lato_swpmanager.project_tasks_path(id: project.id)
+    end
+
+    # This function render a print version of tasks for a single project.
+    def print_tasks
+      # find project
+      @project = Project.find(params[:id])
+      # check user is manager of project
+      if (!@superuser_is_superadmin && !(superuser_is_part_of_project? @project))
+        flash[:warning] = "You can't see stats for this project"
+        redirect_to lato_core.root_path and return false
+      end
+      @tasks = @project.tasks.where(status: 'completed')
+      # disable layout
+      render layout: false
+    end
+
+    # This action show stats informations of project.
+    def stats
+      # find project
+      @project = Project.find(params[:id])
+      # check user is manager of project
+      if (!@superuser_is_superadmin && !(superuser_is_part_of_project? @project))
+        flash[:warning] = "You can't see stats for this project"
+        redirect_to lato_core.root_path and return false
+      end
+      # find datas
+      @tasks = Task.where(project_id: @project.id).order('end_date ASC')
+      @wait_tasks = @tasks.where(status: 'wait')
+      @develop_tasks = @tasks.where(status: 'develop')
+      @test_tasks = @tasks.where(status: 'test')
+      @completed_tasks = @tasks.where(status: 'completed')
+      @collaborators = @project.collaborators
     end
 
     private def fetch_external_objects

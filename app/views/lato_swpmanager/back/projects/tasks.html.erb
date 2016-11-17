@@ -5,8 +5,12 @@ block = view(:layout, :block).new
 project_button = view(:component, :button).new(title: 'Go to project',
 url: lato_swpmanager.project_path(@project.id), size: :small)
 
+print_button = view(:component, :button).new(title: 'Print completed tasks',
+url: lato_swpmanager.project_print_tasks_path(@project.id), size: :small)
+
 tasks_actionbar = view(:layout, :actionbar).new(title: "Tasks", widgets: [
-    {component: project_button, align: :right}
+    {component: project_button, align: :right},
+    {component: print_button, align: :right}
   ])
 
 index = view(:layout, :index).new(head: ['End date', 'Title'],
