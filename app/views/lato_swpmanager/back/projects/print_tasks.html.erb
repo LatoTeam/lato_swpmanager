@@ -99,7 +99,7 @@
     </tr>
     <tr>
       <td>
-        Collaborators: <b><%= @project.string_collaborators %></b> <br>
+        Collaborators: <b><%= @project.string_collaborators(ids: @collaborators) %></b> <br>
       </td>
     </tr>
     <tr>
@@ -141,10 +141,10 @@
       </tr>
     <% end %>
     <tr>
-      <th>Total tasks: <%= @tasks.length %>h</th>
-      <th>Total time: <%= @tasks.sum(:real_work_time) %>h</th>
-      <% if @show_expected_time %><th></th><% end %>
       <th></th>
+      <th class="text-align-center">Total time: <%= @tasks.sum(:real_work_time) %>h</th>
+      <% if @show_expected_time %><th>Total expected time: <%= @tasks.sum(:expected_work_time) %>h</th><% end %>
+      <th class="text-align-center">Total tasks: <%= @tasks.length %></th>
     </tr>
   </table>
 

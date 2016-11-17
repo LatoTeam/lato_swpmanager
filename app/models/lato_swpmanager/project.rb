@@ -38,10 +38,16 @@ module LatoSwpmanager
     end
 
     # This function return a string with all names of collaborators of project.
-    def string_collaborators
+    def string_collaborators(ids: [])
       names = []
-      self.collaborators.each do |collaborator|
-        names.push collaborator.string_complete_name
+      if ids && !ids.empty?
+        self.collaborators.where(id: ids).each do |collaborator|
+          names.push collaborator.string_complete_name
+        end
+      else
+        self.collaborators.each do |collaborator|
+          names.push collaborator.string_complete_name
+        end
       end
       return names.to_sentence
     end

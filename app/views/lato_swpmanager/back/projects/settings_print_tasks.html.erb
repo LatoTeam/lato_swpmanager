@@ -26,6 +26,15 @@ widgets: [{component: back_button, align: :right}])
         <%= raw view(:input, :select).new(value: [],
               name: 'collaborators[]', label: 'Collaborators',
               options: view(:input, :select).generate_options_from_activerecords(@collaborators, :id, :string_complete_name),
+              option_blank: false, width: 'large', required: false, multiple: true) %>
+
+      </div>
+
+      <div class="form-group">
+
+        <%= raw view(:input, :select).new(value: [],
+              name: 'categories[]', label: 'Tasks categories',
+              options: view(:input, :select).generate_options_from_activerecords(@project.task_categories, :id, :title),
               option_blank: false, width: 'half', required: false, multiple: true) %>
 
         <%= raw view(:input, :select).new(value: [],
