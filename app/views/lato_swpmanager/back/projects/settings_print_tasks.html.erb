@@ -5,7 +5,7 @@ block = view(:layout, :block).new
 back_button = view(:component, :button).new(title: 'Go to project',
 url: lato_swpmanager.project_path(@project.id), size: :small)
 
-actionbar = view(:layout, :actionbar).new(title: 'Print project settings',
+actionbar = view(:layout, :actionbar).new(title: 'Print tasks settings',
 widgets: [{component: back_button, align: :right}])
 
 %>
@@ -19,7 +19,7 @@ widgets: [{component: back_button, align: :right}])
 
     <h6 class="latoswpmanager-small-title"><%= @project.title %></h6>
 
-    <%= form_tag lato_swpmanager.project_print_tasks_path(@project.id), method: :post, class: 'lato-form' do %>
+    <%= form_tag lato_swpmanager.project_print_tasks_path(@project.id), method: :post, target: '_blank', class: 'lato-form' do %>
 
       <div class="form-group">
 
