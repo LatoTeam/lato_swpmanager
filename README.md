@@ -14,6 +14,12 @@ Install the gem
 bundle install
 ```
 
+Generate config files
+
+```console
+rails lato_swpmanager_initialize
+```
+
 Exec migrations
 
 ```console
