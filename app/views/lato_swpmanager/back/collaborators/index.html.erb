@@ -5,8 +5,13 @@ block = view(:layout, :block).new
 new_button = view(:component, :button).new(title: 'Create new collaborator',
 url: lato_swpmanager.new_collaborator_path, size: :small)
 
+searchbar = view(:component, :searchbar).new(elements: @search_collaborators,
+            url: lato_swpmanager.collaborators_path, filter: 'surname_cont',
+            style: :rounded, remote: false)
+
 actionbar = view(:layout, :actionbar).new(title: "Collaborators", widgets: [
-    {component: new_button, align: :right}
+    {component: new_button, align: :right},
+    {component: searchbar, align: :left}
   ])
 
 index = view(:layout, :index).new(head: ['Name', 'Email'], elements: @collaborators, attributes: [:string_complete_name, :email],

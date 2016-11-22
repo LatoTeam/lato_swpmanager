@@ -27,7 +27,8 @@ module LatoSwpmanager
     end
 
     def index
-      @collaborators = Collaborator.all.paginate(page: params[:page], per_page: 20).order('surname ASC')
+      @search_collaborators = Collaborator.ransack(params[:q])
+      @collaborators = @search_collaborators.result.paginate(page: params[:page], per_page: 20).order('surname ASC')
     end
 
     def new
