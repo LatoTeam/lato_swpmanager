@@ -10,7 +10,9 @@
       <div class="timeline-tasks">
         <% tasks.each do |task| %>
           <a href="<%= lato_swpmanager.task_path(task.id) %>" class="timeline-task <%= task.status %>">
-            <span class="timeline-task-time"><%= task.real_work_time ? task.real_work_time : task.expected_work_time %></span>
+            <% if task.real_work_time || task.expected_work_time %>
+              <span class="timeline-task-time"><%= task.real_work_time ? task.real_work_time : task.expected_work_time %></span>
+            <% end %>
             <div class="timeline-task-title"><%= task.title %></div>
             <div class="timeline-task-info"><%= task.project.title %></div>
           </a>
