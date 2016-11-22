@@ -44,6 +44,16 @@ module LatoSwpmanager
       return self.task_category.title if self.task_category
     end
 
+    # This function return the title of the task with its category.
+    def string_title_with_category
+      if self.task_category
+        category_title = self.string_task_category_title
+        return "#{category_title} - #{self.title}"
+      else
+        return self.title
+      end
+    end
+
     # This function return the number of messages of the task.
     def get_messages_number
       return self.task_messages.length

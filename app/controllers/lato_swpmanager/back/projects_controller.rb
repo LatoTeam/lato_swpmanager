@@ -1,15 +1,19 @@
+
 module LatoSwpmanager
   class Back::ProjectsController < Back::BackController
 
     before_action :check_user_is_admin, except: [:show]
 
     def index
+      @search_projects = Project.ransack(params[:q])
       # find correct projects for user
       if @superuser_is_superadmin
-        @projects = Project.all.paginate(page: params[:page], per_page: 20).order('title ASC')
+        @projects = @search_projects.result.paginate(page: params[:page], per_page: 20).order('title ASC')
       else
-        @projects = Project.where(superuser_manager_id: @superuser.id).paginate(page: params[:page], per_page: 20).order('title ASC')
+        @projects = @search_projects.result.where(superuser_manager_id: @superuser.id).paginate(page: params[:page], per_page: 20).order('title ASC')
       end
+      # find correct develop projects
+      @projects_develop = @projects.where(status: 'develop')
     end
 
     def new
@@ -81,10 +85,22 @@ module LatoSwpmanager
     def show
       @project = Project.find(params[:id])
       @tasks = @project.tasks
+
       # check user is collaborator of project
       if (!@superuser_is_superadmin && !(superuser_is_part_of_project? @project))
         flash[:warning] = "You can't get information about this project"
         redirect_to lato_core.root_path and return false
+      end
+
+      # find client datas
+      @client = false
+      @client_function = false
+
+      clients_model_name = swpmanager_getClientModelName
+      clients_get_name_function = swpmanager_getClientGetNameFunction
+      if clients_model_name && clients_get_name_function
+        @client = clients_model_name.constantize.find_by(id: @project.client_id)
+        @client_function = clients_get_name_function
       end
     end
 
@@ -104,13 +120,6 @@ module LatoSwpmanager
       @develop_tasks = @tasks.where(status: 'develop')
       @test_tasks = @tasks.where(status: 'test')
       @completed_tasks = @tasks.where(status: 'completed')
-      # prepare datas for form
-      if params[:task_id]
-        @task = Task.find(params[:task_id])
-      else
-        @task = Task.new
-      end
-      @task_categories = TaskCategory.where(project_id: @project.id)
       # prepare datas for timeline
       if params[:init_date]
         @init_date = params[:init_date].to_date
@@ -203,9 +212,18 @@ module LatoSwpmanager
     end
 
     private def fetch_external_objects
-      @clients = false
       @collaborators = Collaborator.all
       @superusers = LatoCore::Superuser.where('permission >= ?', swpmanager_getCollaboratorAdminSuperuserPermission)
+
+      @clients = false
+      @clients_function = false
+
+      clients_model_name = swpmanager_getClientModelName
+      clients_get_name_function = swpmanager_getClientGetNameFunction
+      if clients_model_name && clients_get_name_function
+        @clients = clients_model_name.constantize.all
+        @clients_function = clients_get_name_function
+      end
     end
 
   end

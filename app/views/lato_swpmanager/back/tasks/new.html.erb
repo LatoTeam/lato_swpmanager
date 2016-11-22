@@ -1,0 +1,22 @@
+<%
+
+block = view(:layout, :block).new
+
+back_button = view(:component, :button).new(title: 'Project tasks',
+url: lato_swpmanager.project_tasks_path(@project.id), size: :small)
+
+actionbar = view(:layout, :actionbar).new(title: "New task",
+widgets: [{component: back_button, align: :right}])
+
+%>
+
+
+<%=raw actionbar %>
+
+<div class="content-row">
+  <%=raw block.open %>
+
+    <%= render 'lato_swpmanager/back/tasks/shared/form', method: :post %>
+
+  <%=raw block.close %>
+</div>

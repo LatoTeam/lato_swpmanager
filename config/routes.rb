@@ -6,7 +6,7 @@ LatoSwpmanager::Engine.routes.draw do
   resources :projects, module: 'back'
   resources :clients, module: 'back'
   resources :collaborators, module: 'back'
-  resources :tasks, except: [:new, :index], module: 'back'
+  resources :tasks, except: [:index], module: 'back'
   resources :task_messages, only: [:create, :destroy], module: 'back'
   resources :task_categories, only: [:index, :create, :destroy], module: 'back'
 

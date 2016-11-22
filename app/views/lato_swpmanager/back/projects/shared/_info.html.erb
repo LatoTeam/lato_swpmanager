@@ -15,10 +15,10 @@
         <td><%= @project.quote %></td>
       </tr>
     <% end %>
-    <% if @project.client_id %>
+    <% if @project.client_id && @client && @client_function %>
       <tr>
         <th>Client</th>
-        <td></td>
+        <td><%= @client.send(@client_function) %></td>
       </tr>
     <% end %>
   <% end %>

@@ -21,6 +21,12 @@ module LatoSwpmanager
       @task_message = TaskMessage.new
     end
 
+    def new
+      @project = Project.find(params[:project_id])
+      @task = Task.new
+      fetch_external_objects
+    end
+
     def create
       # create task
       task = Task.new(task_params)
@@ -39,14 +45,14 @@ module LatoSwpmanager
 
     def edit
       # find edit task
-      task = Task.find(params[:id])
+      @task = Task.find(params[:id])
+      @project = @task.project
+      fetch_external_objects
       # check superuser is part of the project
       if (!@superuser_is_superadmin && !(superuser_is_part_of_project? task.project))
         flash[:warning] = "You can't edit this task"
         redirect_to lato_swpmanager.root_path and return false
       end
-      # redirecto to project tasks page
-      redirect_to lato_swpmanager.project_tasks_path(id: task.project_id, task_id: task.id)
     end
 
     def update
@@ -80,6 +86,10 @@ module LatoSwpmanager
       # redirect to correct page
       flash[:success] = "Task deleted"
       redirect_to lato_swpmanager.project_tasks_path(id: task.project_id)
+    end
+
+    private def fetch_external_objects
+      @task_categories = TaskCategory.where(project_id: @project.id)
     end
 
   end

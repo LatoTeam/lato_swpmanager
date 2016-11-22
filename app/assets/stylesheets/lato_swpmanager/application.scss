@@ -177,6 +177,23 @@ $yellow-sea     : #ffae03;
   }
 }
 
+// timeline data select
+.latoswpmanager-timeline-date-select-button {
+  cursor: pointer;
+  text-transform: none;
+  float: right;
+}
+
+.latoswpmanager-timeline-date-select {
+  height: 0;
+  overflow: hidden;
+
+  &.active {
+    height: 100%;
+    overflow: visible;
+  }
+}
+
 // STYLE FOR CUSTOM PAGES
 // /////////////////////////////////////////////////////////////////////////////
 

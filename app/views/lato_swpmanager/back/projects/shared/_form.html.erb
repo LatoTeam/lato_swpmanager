@@ -19,10 +19,10 @@
       <%= raw view(:input, :number).new(value: @project.quote,
               name: 'project[quote]', label: 'Quote', width: (@clients ? 'half' : 'large'), required: false) %>
 
-      <% if @clients %>
+      <% if @clients && @clients_function %>
         <%= raw view(:input, :select).new(value: @project.client_id,
                 name: 'project[client_id]', label: 'Client',
-                options: [],
+                options: view(:input, :select).generate_options_from_activerecords(@clients, :id, @clients_function),
                 option_blank: false, width: 'half', required: false, multiple: false) %>
       <% end %>
 

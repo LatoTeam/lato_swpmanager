@@ -5,23 +5,42 @@ block = view(:layout, :block).new
 new_button = view(:component, :button).new(title: 'Create new project',
 url: lato_swpmanager.new_project_path, size: :small)
 
+searchbar = view(:component, :searchbar).new(elements: @search_projects,
+            url: lato_swpmanager.projects_path, filter: 'title_cont',
+            style: :rounded, remote: false)
+
 actionbar = view(:layout, :actionbar).new(title: "Projects", widgets: [
-    {component: new_button, align: :right}
+    {component: new_button, align: :right},
+    {component: searchbar, align: :left}
   ])
 
-index = view(:layout, :index).new(head: ['Title', 'Deadline', 'Project manager'], elements: @projects, attributes: [:title, :string_deadline, :string_superuser_manager_name],
+index = view(:layout, :index).new(head: ['Title'], elements: @projects,
+attributes: [:title],
 link: lato_swpmanager.projects_path, show_link: true, edit_link: true, delete_link: true)
+
+index_develop = view(:layout, :index).new(head: ['Title'], elements: @projects_develop, attributes: [:title],
+link: lato_swpmanager.projects_path, show_link: true, edit_link: false, delete_link: false)
 
 %>
 
 <%=raw actionbar %>
 
 <div class="content-row">
-  <%=raw block.open %>
+  <%=raw block.open(width: 'third') %>
 
-      <%=raw index %>
+    <h6 class="latoswpmanager-small-title">Develop projects</h6>
 
-      <%= will_paginate @projects,  previous_label: '←',  next_label: '→' %>
+    <%=raw index_develop %>
+
+  <%=raw block.close %>
+
+  <%=raw block.open(width: 'two-third') %>
+
+    <h6 class="latoswpmanager-small-title">All projects</h6>
+
+    <%=raw index %>
+
+    <%= will_paginate @projects,  previous_label: '←',  next_label: '→' %>
 
   <%=raw block.close %>
 </div>

@@ -14,23 +14,23 @@ tasks_actionbar = view(:layout, :actionbar).new(title: "Tasks", widgets: [
   ])
 
 index = view(:layout, :index).new(head: ['End date', 'Title'],
-elements: @deadline_tasks, attributes: [:string_end_date, :title],
+elements: @deadline_tasks, attributes: [:string_end_date, :string_title_with_category],
 link: lato_swpmanager.tasks_path, show_link: true, edit_link: false, delete_link: false)
 
-wait_index = view(:layout, :index).new(head: ['Category', 'Title'],
-elements: @wait_tasks, attributes: [:string_task_category_title, :title],
+wait_index = view(:layout, :index).new(head: ['Title'],
+elements: @wait_tasks, attributes: [:string_title_with_category],
 link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link: true)
 
 develop_index = view(:layout, :index).new(head: ['Title', 'Messages'],
-elements: @develop_tasks, attributes: [:title, :get_messages_number],
+elements: @develop_tasks, attributes: [:string_title_with_category, :get_messages_number],
 link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link: true)
 
-test_index = view(:layout, :index).new(head: ['Category', 'Title'],
-elements: @test_tasks, attributes: [:string_task_category_title, :title],
+test_index = view(:layout, :index).new(head: ['Title'],
+elements: @test_tasks, attributes: [:string_title_with_category],
 link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link: true)
 
-completed_index = view(:layout, :index).new(head: ['Category', 'Title'],
-elements: @completed_tasks, attributes: [:string_task_category_title, :title],
+completed_index = view(:layout, :index).new(head: ['Title'],
+elements: @completed_tasks, attributes: [:string_title_with_category],
 link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link: true)
 
 %>
@@ -49,17 +49,6 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 
 <% end %>
 
-<div class="latoswpmanager-project-tasks-form <%= (@task.id ? 'active' : nil) %>">
-  <div class="content-row">
-    <%=raw block.open %>
-
-      <%= render 'lato_swpmanager/back/tasks/shared/form', method: :post unless @task.id %>
-      <%= render 'lato_swpmanager/back/tasks/shared/form', method: :put if @task.id %>
-
-    <%=raw block.close %>
-  </div>
-</div>
-
 <div class="content-row">
   <%=raw block.open(width: 'small-12 medium-7') %>
 
@@ -73,7 +62,8 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 
     <%= render 'lato_swpmanager/back/projects/shared/tasks_info' %>
 
-    <a class="lato-button button-small button-yellow" id="latoswpmanager-project-tasks-new-button" style="float: right">New task</a>
+    <%= link_to 'New task', lato_swpmanager.new_task_path(project_id: @project.id), class: 'lato-button button-small button-yellow' %>
+
     <%= link_to 'Task categories', lato_swpmanager.task_categories_path(project_id: @project.id), class: 'lato-button button-small button-green' %>
 
   <%=raw block.close %>
@@ -82,7 +72,20 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
 <div class="content-row" id="timeline">
   <%=raw block.open(width: 'large') %>
 
-    <h6 class="latoswpmanager-small-title">Tasks timeline</h6>
+    <h6 class="latoswpmanager-small-title">Tasks timeline <a class="latoswpmanager-timeline-date-select-button">Change start date</a></h6>
+
+    <div class="latoswpmanager-timeline-date-select">
+      <%= form_tag lato_swpmanager.project_tasks_path(@project.id), method: :get, class: 'lato-form' do %>
+
+        <div class="form-group">
+          <%= raw view(:input, :date).new(value: @init_date.strftime('%d/%m/%Y'),
+                  name: 'init_date', label: 'Start date', width: 'large', required: false) %>
+        </div>
+
+        <%= submit_tag 'Go to date', class: 'lato-button button-small', style: 'float: right; margin-bottom: 20px;' %>
+
+      <% end %>
+    </div>
 
     <%= render 'lato_swpmanager/back/projects/shared/timeline' %>
 
