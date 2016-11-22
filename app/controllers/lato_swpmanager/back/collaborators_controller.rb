@@ -14,7 +14,7 @@ module LatoSwpmanager
 
       # prepare data about collaborator projects and profile
       @projects = @collaborator.projects.where(status: 'develop').order('title ASC')
-      @tasks = @collaborator.tasks
+      @tasks = @collaborator.tasks.where(project_id: @projects.pluck(:id))
 
       # prepare data about collaborator timeline
       if params[:init_date]
