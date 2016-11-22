@@ -23,7 +23,7 @@
         <%= raw view(:input, :select).new(value: @project.client_id,
                 name: 'project[client_id]', label: 'Client',
                 options: view(:input, :select).generate_options_from_activerecords(@clients, :id, @clients_function),
-                option_blank: false, width: 'half', required: false, multiple: false) %>
+                option_blank: true, width: 'half', required: false, multiple: false) %>
       <% end %>
 
     </div>
