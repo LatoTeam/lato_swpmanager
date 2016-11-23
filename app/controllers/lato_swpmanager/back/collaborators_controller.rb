@@ -1,7 +1,7 @@
 module LatoSwpmanager
   class Back::CollaboratorsController < Back::BackController
 
-    before_action :check_user_is_admin, except: [:show]
+    before_action :check_user_is_admin, except: [:show, :edit_access, :update_access]
     before_action :check_user_is_superadmin, only: [:destroy]
 
     def show
@@ -71,6 +71,29 @@ module LatoSwpmanager
 
       flash[:success] = "Collaborator deleted"
       redirect_to lato_swpmanager.collaborators_path
+    end
+
+    # This function permit the user to edit its access informations.
+    def edit_access
+      redirect_to lato_swpmanager.root_path and return false unless @superuser_collaborator
+    end
+
+    # This function update the user access data.
+    def update_access
+      redirect_to lato_swpmanager.root_path and return false unless @superuser_collaborator
+
+      result = false
+      if params[:password]
+        result = @superuser.update(username: params[:username], password: params[:password],
+        password_confirmation: params[:password_confirmation])
+      else
+        result = @superuser.update(username: params[:username])
+      end
+
+      flash[:success] = "Access data accepted" if result
+      flash[:danger] = "Access data not accepted" unless result
+
+      redirect_to lato_swpmanager.collaborator_path(@superuser_collaborator.id)
     end
 
     # This function check superuser exist for collaborator and destroy it if

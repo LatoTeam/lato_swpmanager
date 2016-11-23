@@ -14,7 +14,7 @@ send = 'Update' if method === :put
     <%= raw view(:input, :select).new(value: @task.task_category_id,
             name: 'task[task_category_id]', label: 'Category',
             options: view(:input, :select).generate_options_from_activerecords(@task_categories, :id, :title),
-            option_blank: false, width: 'half', required: false, multiple: false) %>
+            option_blank: true, width: 'half', required: false, multiple: false) %>
 
   </div>
 

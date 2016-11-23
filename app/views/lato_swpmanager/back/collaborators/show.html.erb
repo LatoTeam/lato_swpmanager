@@ -5,9 +5,15 @@ block = view(:layout, :block).new
 back_button = view(:component, :button).new(title: 'All collaborators',
 url: lato_swpmanager.collaborators_path, size: :small)
 
+access_button = view(:component, :button).new(title: 'Access settings',
+url: lato_swpmanager.collaborator_edit_access_path, size: :small)
+
 actionbar_widgets = []
 if @superuser_is_admin
   actionbar_widgets.push({component: back_button, align: :right})
+end
+if @superuser_collaborator && @superuser_collaborator === @collaborator
+  actionbar_widgets.push({component: access_button, align: :right})
 end
 
 actionbar = view(:layout, :actionbar).new(title: @collaborator.string_complete_name,

@@ -1,0 +1,47 @@
+<%
+
+block = view(:layout, :block).new
+
+back_button = view(:component, :button).new(title: 'Go to profile',
+url: lato_swpmanager.collaborator_path(@superuser_collaborator.id), size: :small)
+
+actionbar = view(:layout, :actionbar).new(title: "Collaborator access settings",
+widgets: [{component: back_button, align: :right}])
+
+%>
+
+
+<%=raw actionbar %>
+
+<div class="content-row">
+  <%=raw block.open %>
+
+    <%= form_tag lato_swpmanager.collaborator_update_access_path, method: :put, class: 'lato-form' do %>
+
+    <h6 class="latoswpmanager-small-title">Update username</h6>
+
+      <div class="form-group">
+
+        <%= raw view(:input, :text).new(value: @superuser.username,
+                name: 'username', label: 'Username', width: 'large', required: true) %>
+
+      </div>
+
+      <h6 class="latoswpmanager-small-title">Update password</h6>
+
+      <div class="form-group">
+
+        <%= raw view(:input, :password).new(value: '',
+                name: 'password', label: 'New password', width: 'half', required: false) %>
+
+        <%= raw view(:input, :password).new(value: '',
+                name: 'password_confirmation', label: 'Confirm new password', width: 'half', required: false) %>
+
+      </div>
+
+      <%= submit_tag 'Update', class: 'lato-button button-small' %>
+
+    <% end %>
+
+  <%=raw block.close %>
+</div>

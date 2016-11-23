@@ -10,6 +10,10 @@ LatoSwpmanager::Engine.routes.draw do
   resources :task_messages, only: [:create, :destroy], module: 'back'
   resources :task_categories, only: [:index, :create, :destroy], module: 'back'
 
+  # Collaborator extra
+  get 'collaborator_extra/edit_access', to: 'back/collaborators#edit_access', as: 'collaborator_edit_access'
+  put 'collaborator_extra/update_access', to: 'back/collaborators#update_access', as: 'collaborator_update_access'
+
   # Project extra
   get 'project_extra/tasks/:id', to: 'back/projects#tasks', as: 'project_tasks'
   get 'project_extra/tasks/:id/update_late_tasks', to: 'back/projects#update_late_tasks', as: 'project_update_late_tasks'
