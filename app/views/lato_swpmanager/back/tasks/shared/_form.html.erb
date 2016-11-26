@@ -54,6 +54,6 @@ send = 'Update' if method === :put
 
   <input type="hidden" name="task[project_id]" value="<%= @project.id %>">
 
-  <%= f.submit send, class: 'lato-button button-small', :data => { disable_with: false } %>
+  <%= f.submit send, class: 'lato-button button-small', data: { disable_with: false } %>
 
 <% end %>

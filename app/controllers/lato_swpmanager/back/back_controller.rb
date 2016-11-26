@@ -54,14 +54,6 @@ module LatoSwpmanager
       if @superuser_collaborator && !@superuser_is_admin
         redirect_to lato_swpmanager.collaborator_path(@superuser_collaborator.id)
       else
-        # prepare datas for timeline
-        if params[:init_date]
-          @init_date = params[:init_date].to_date
-          @end_date = @init_date + 6
-        else
-          @init_date = Date.yesterday
-          @end_date = @init_date + 6
-        end
         # prepare projects
         if @superuser_is_superadmin
           @projects = Project.where('deadline >= ? ', @init_date)

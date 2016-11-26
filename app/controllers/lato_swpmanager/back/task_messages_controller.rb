@@ -11,8 +11,11 @@ module LatoSwpmanager
       else
         flash[:danger] = "Message not created"
       end
-      # redirect
-      redirect_to lato_swpmanager.task_path(id: task_message.task_id)
+      # update page without refresh
+      @task = Task.find(task_message.task_id)
+      respond_to do |format|
+        format.js { render action: 'functions/update_conversation'}
+      end
     end
 
     def destroy

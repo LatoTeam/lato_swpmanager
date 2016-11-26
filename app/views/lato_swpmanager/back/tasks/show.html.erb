@@ -39,7 +39,9 @@ widgets: actionbar_widgets)
     <%= render 'lato_swpmanager/back/task_messages/shared/form' %> <br>
 
     <% if @task.task_messages && !@task.task_messages.empty? %>
-      <%= render 'lato_swpmanager/back/task_messages/shared/conversation' %>
+      <div class="lato-swpmanager-task-coversation-container">
+        <%= render 'lato_swpmanager/back/task_messages/shared/conversation' %>
+      </div>
     <% end %>
 
   <%=raw block.close %>

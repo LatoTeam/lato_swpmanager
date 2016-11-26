@@ -44,7 +44,7 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
   Start to create a <b>new task category</b> or a <b>new task</b>.
   <br><br>
   <%= link_to 'Create new task category', lato_swpmanager.task_categories_path(project_id: @project.id), class: 'lato-button button-small button-green' %>
-  <a class="lato-button button-small button-yellow" id="latoswpmanager-project-tasks-new-button">New task</a>
+  <%= link_to 'New task', lato_swpmanager.new_task_path(project_id: @project.id), class: 'lato-button button-small button-yellow' %>
 </div>
 
 <% end %>
@@ -75,7 +75,7 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
     <h6 class="latoswpmanager-small-title">Tasks timeline <a class="latoswpmanager-timeline-date-select-button">Change start date</a></h6>
 
     <div class="latoswpmanager-timeline-date-select">
-      <%= form_tag lato_swpmanager.project_tasks_path(@project.id), method: :get, class: 'lato-form' do %>
+      <%= form_tag lato_swpmanager.project_tasks_path(@project.id), method: :get, class: 'lato-form', remote: true do %>
 
         <div class="form-group">
           <%= raw view(:input, :date).new(value: @init_date.strftime('%d/%m/%Y'),
