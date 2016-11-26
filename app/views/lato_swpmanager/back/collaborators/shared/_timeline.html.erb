@@ -1,7 +1,7 @@
 <div class="latoswpmanager-timeline">
 
-  <a href="<%= lato_swpmanager.collaborator_path(@collaborator.id, init_date: @init_date - 7) %>#timeline" class="timeline-navigation-arrow prev"><</a>
-  <a href="<%= lato_swpmanager.collaborator_path(@collaborator.id, init_date: @init_date + 7) %>#timeline" class="timeline-navigation-arrow next">></a>
+  <%= link_to '<', lato_swpmanager.collaborator_path(@collaborator.id, init_date: @init_date - 7), class: 'timeline-navigation-arrow prev', remote: true %>
+  <%= link_to '>', lato_swpmanager.collaborator_path(@collaborator.id, init_date: @init_date + 7), class: 'timeline-navigation-arrow next', remote: true %>
 
   <% (@init_date..@end_date).to_a.each do |date| %>
   <% tasks = @tasks.where('start_date <= ?', date).where('end_date >= ?', date) %>

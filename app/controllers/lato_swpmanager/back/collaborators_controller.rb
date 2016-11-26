@@ -20,6 +20,10 @@ module LatoSwpmanager
       if params[:init_date]
         @init_date = params[:init_date].to_date
         @end_date = @init_date + 6
+        # update page without refresh
+        respond_to do |format|
+          format.js { render action: 'functions/update_timeline'}
+        end
       else
         @init_date = Date.yesterday
         @end_date = @init_date + 6

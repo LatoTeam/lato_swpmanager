@@ -69,7 +69,7 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
   <%=raw block.close %>
 </div>
 
-<div class="content-row" id="timeline">
+<div class="content-row">
   <%=raw block.open(width: 'large') %>
 
     <h6 class="latoswpmanager-small-title">Tasks timeline <a class="latoswpmanager-timeline-date-select-button">Change start date</a></h6>
@@ -87,7 +87,9 @@ link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link:
       <% end %>
     </div>
 
-    <%= render 'lato_swpmanager/back/projects/shared/timeline' %>
+    <div class="lato-swpmanager-timeline-container">
+      <%= render 'lato_swpmanager/back/projects/shared/timeline' %>
+    </div>
 
     <%= link_to 'Update start date to all late tasks', lato_swpmanager.project_update_late_tasks_path, class: 'lato-button button-small', style: 'margin-top: 20px' %>
 

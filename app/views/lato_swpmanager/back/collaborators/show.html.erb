@@ -44,13 +44,15 @@ project_actionbar = view(:layout, :actionbar).new(title: 'Projects')
   <%=raw block.close %>
 </div>
 
-<div class="content-row" id="timeline">
+<div class="content-row">
 
     <%=raw block.open(width: 'large') %>
 
         <h6 class="latoswpmanager-small-title">Timeline</h6>
 
-        <%= render 'lato_swpmanager/back/collaborators/shared/timeline' %>
+        <div class="lato-swpmanager-timeline-container">
+          <%= render 'lato_swpmanager/back/collaborators/shared/timeline' %>
+        </div>
 
     <%=raw block.close %>
 
