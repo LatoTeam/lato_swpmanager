@@ -6,11 +6,7 @@ module LatoSwpmanager
       # save superuser creator
       task_message.superuser_creator_id = @superuser.id
       # save message
-      if task_message.save
-        flash[:success] = "Message created"
-      else
-        flash[:danger] = "Message not created"
-      end
+      task_message.save
       # update page without refresh
       @task = Task.find(task_message.task_id)
       respond_to do |format|

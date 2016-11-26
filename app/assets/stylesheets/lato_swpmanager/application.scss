@@ -267,7 +267,6 @@ $yellow-sea     : #ffae03;
 
   .user {
     font-size: 12px;
-    margin-left: 20px;
 
     a {
       color: $scarlet;
@@ -275,22 +274,28 @@ $yellow-sea     : #ffae03;
   }
 
   .message {
-    background: rgba($rhino, 0.1);
+    background: rgba($robin-blue, 0.1);
     padding: 8px 20px;
     font-size: 14px;
-    border-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 0;
   }
 
   &.current {
     .user {
       text-align: right;
-      margin-right: 20px;
       margin-left: 0;
     }
 
     .message {
-      background: rgba($robin-blue, 0.1);
+      background: rgba($jungle-green, 0.1);
       text-align: right;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 10px;
+      border-bottom-left-radius: 10px;
+      border-top-left-radius: 10px;
     }
   }
 }
