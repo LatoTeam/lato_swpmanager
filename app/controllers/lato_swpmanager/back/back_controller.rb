@@ -55,10 +55,14 @@ module LatoSwpmanager
       redirect_to lato_swpmanager.collaborator_path(@superuser_collaborator.id) if @superuser_collaborator && !@superuser_is_admin
       # find tasks to show to user
       if @superuser_is_superadmin
-        @tasks = Task.where(status: 'wait')
+        @tasks = []
+        projects = Project.where(status: 'develop')
+        projects.each do |project|
+          @tasks = @tasks + project.tasks.where(status: 'wait')
+        end
       elsif @superuser_is_admin
         @tasks = []
-        projects = Project.where(superuser_manager_id: @superuser.id)
+        projects = Project.where(superuser_manager_id: @superuser.id, status: 'develop')
         projects.each do |project|
           @tasks = @tasks + project.tasks.where(status: 'wait')
         end
