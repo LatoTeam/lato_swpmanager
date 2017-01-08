@@ -22,12 +22,18 @@ end
 
 actionbar = view(:layout, :actionbar).new(title: "Software Projects Manager", widgets: actionbar_widgets)
 
+tasks_index = view(:layout, :index).new(head: ['Title', 'Project'],
+elements: @tasks, attributes: [:string_title_with_category, :string_project_title],
+link: lato_swpmanager.tasks_path, show_link: true, edit_link: true, delete_link: false)
+
 %>
 
 <%=raw actionbar %>
 
 <div class="content-row">
   <%=raw block.open %>
+
+    <%=raw tasks_index %>
 
   <%=raw block.close %>
 </div>
