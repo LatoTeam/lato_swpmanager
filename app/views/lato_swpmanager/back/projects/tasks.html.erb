@@ -13,8 +13,8 @@ tasks_actionbar = view(:layout, :actionbar).new(title: "Tasks", widgets: [
     {component: print_button, align: :right}
   ])
 
-index = view(:layout, :index).new(head: ['End date', 'Title'],
-elements: @deadline_tasks, attributes: [:string_end_date, :string_title_with_category],
+index = view(:layout, :index).new(head: ['End date', 'Title', 'Expected time'],
+elements: @deadline_tasks, attributes: [:string_end_date, :string_title_with_category, :expected_work_time],
 link: lato_swpmanager.tasks_path, show_link: true, edit_link: false, delete_link: false)
 
 wait_index = view(:layout, :index).new(head: ['Title'],
